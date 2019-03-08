@@ -1,0 +1,8 @@
+prefix=/home/rachel/rawhide/rawhide_ws/devel
+
+Name: sawyer_rr_bridge
+Description: Description of sawyer_rr_bridge
+Version: 0.0.1
+Cflags: 
+Libs: -L/home/rachel/rawhide/rawhide_ws/devel/lib 
+Requires: rospy actionlib sensor_msgs control_msgs trajectory_msgs cv_bridge dynamic_reconfigure intera_core_msgs intera_interface

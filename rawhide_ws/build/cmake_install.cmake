@@ -126,6 +126,8 @@ if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   include("/home/rachel/rawhide/rawhide_ws/build/intera_common/intera_motion_msgs/cmake_install.cmake")
   include("/home/rachel/rawhide/rawhide_ws/build/intera_sdk/intera_interface/cmake_install.cmake")
   include("/home/rachel/rawhide/rawhide_ws/build/intera_sdk/intera_examples/cmake_install.cmake")
+  include("/home/rachel/rawhide/rawhide_ws/build/sawyer_pykdl/cmake_install.cmake")
+  include("/home/rachel/rawhide/rawhide_ws/build/sawyer_rr_bridge/cmake_install.cmake")
 
 endif()
 

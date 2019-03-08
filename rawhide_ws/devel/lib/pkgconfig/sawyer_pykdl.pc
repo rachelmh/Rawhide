@@ -1,0 +1,8 @@
+prefix=/home/rachel/rawhide/rawhide_ws/devel
+
+Name: sawyer_pykdl
+Description: Description of sawyer_pykdl
+Version: 0.1.0
+Cflags: 
+Libs: -L/home/rachel/rawhide/rawhide_ws/devel/lib 
+Requires: rospy geometry_msgs sensor_msgs urdfdom tf intera_interface intera_core_msgs

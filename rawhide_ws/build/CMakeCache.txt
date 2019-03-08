@@ -395,6 +395,9 @@ intera_tools_description_SOURCE_DIR:STATIC=/home/rachel/rawhide/rawhide_ws/src/i
 //Path to a library.
 lib:FILEPATH=/opt/ros/kinetic/lib/libdynamic_reconfigure_config_init_mutex.so
 
+//The directory containing a CMake configuration file for message_filters.
+message_filters_DIR:PATH=/opt/ros/kinetic/share/message_filters/cmake
+
 //The directory containing a CMake configuration file for message_generation.
 message_generation_DIR:PATH=/opt/ros/kinetic/share/message_generation/cmake
 
@@ -413,6 +416,9 @@ roscpp_serialization_DIR:PATH=/opt/ros/kinetic/share/roscpp_serialization/cmake
 //The directory containing a CMake configuration file for roscpp_traits.
 roscpp_traits_DIR:PATH=/opt/ros/kinetic/share/roscpp_traits/cmake
 
+//The directory containing a CMake configuration file for rosgraph.
+rosgraph_DIR:PATH=/opt/ros/kinetic/share/rosgraph/cmake
+
 //The directory containing a CMake configuration file for rosgraph_msgs.
 rosgraph_msgs_DIR:PATH=/opt/ros/kinetic/share/rosgraph_msgs/cmake
 
@@ -429,16 +435,43 @@ sawyer_description_BINARY_DIR:STATIC=/home/rachel/rawhide/rawhide_ws/build/sawye
 sawyer_description_SOURCE_DIR:STATIC=/home/rachel/rawhide/rawhide_ws/src/sawyer_robot/sawyer_description
 
 //Value Computed by CMake
+sawyer_pykdl_BINARY_DIR:STATIC=/home/rachel/rawhide/rawhide_ws/build/sawyer_pykdl
+
+//Value Computed by CMake
+sawyer_pykdl_SOURCE_DIR:STATIC=/home/rachel/rawhide/rawhide_ws/src/sawyer_pykdl
+
+//Value Computed by CMake
 sawyer_robot_BINARY_DIR:STATIC=/home/rachel/rawhide/rawhide_ws/build/sawyer_robot/sawyer_robot
 
 //Value Computed by CMake
 sawyer_robot_SOURCE_DIR:STATIC=/home/rachel/rawhide/rawhide_ws/src/sawyer_robot/sawyer_robot
+
+//Value Computed by CMake
+sawyer_rr_bridge_BINARY_DIR:STATIC=/home/rachel/rawhide/rawhide_ws/build/sawyer_rr_bridge
+
+//Value Computed by CMake
+sawyer_rr_bridge_SOURCE_DIR:STATIC=/home/rachel/rawhide/rawhide_ws/src/sawyer_rr_bridge
 
 //The directory containing a CMake configuration file for sensor_msgs.
 sensor_msgs_DIR:PATH=/opt/ros/kinetic/share/sensor_msgs/cmake
 
 //The directory containing a CMake configuration file for std_msgs.
 std_msgs_DIR:PATH=/opt/ros/kinetic/share/std_msgs/cmake
+
+//The directory containing a CMake configuration file for tf2.
+tf2_DIR:PATH=/opt/ros/kinetic/share/tf2/cmake
+
+//The directory containing a CMake configuration file for tf2_msgs.
+tf2_msgs_DIR:PATH=/opt/ros/kinetic/share/tf2_msgs/cmake
+
+//The directory containing a CMake configuration file for tf2_py.
+tf2_py_DIR:PATH=/opt/ros/kinetic/share/tf2_py/cmake
+
+//The directory containing a CMake configuration file for tf2_ros.
+tf2_ros_DIR:PATH=/opt/ros/kinetic/share/tf2_ros/cmake
+
+//The directory containing a CMake configuration file for tf.
+tf_DIR:PATH=/opt/ros/kinetic/share/tf/cmake
 
 //The directory containing a CMake configuration file for trajectory_msgs.
 trajectory_msgs_DIR:PATH=/opt/ros/kinetic/share/trajectory_msgs/cmake
@@ -548,7 +581,7 @@ CMAKE_MODULE_LINKER_FLAGS_RELWITHDEBINFO-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_NM
 CMAKE_NM-ADVANCED:INTERNAL=1
 //number of local generators
-CMAKE_NUMBER_OF_MAKEFILES:INTERNAL=12
+CMAKE_NUMBER_OF_MAKEFILES:INTERNAL=14
 //ADVANCED property for variable: CMAKE_OBJCOPY
 CMAKE_OBJCOPY-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_OBJDUMP

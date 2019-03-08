@@ -1,0 +1,6 @@
+set(sawyer_rr_bridge_SETUP_PY_VERSION "0.0.1")
+set(sawyer_rr_bridge_SETUP_PY_SCRIPTS "")
+set(sawyer_rr_bridge_SETUP_PY_PACKAGES "sawyer_rr_bridge;sawyer_external_devices")
+set(sawyer_rr_bridge_SETUP_PY_PACKAGE_DIRS "src/sawyer_rr_bridge;src/sawyer_external_devices")
+set(sawyer_rr_bridge_SETUP_PY_MODULES "")
+set(sawyer_rr_bridge_SETUP_PY_MODULE_DIRS "")
