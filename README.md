@@ -139,6 +139,12 @@ You should see a the rostopic list from the command line output similar as follo
 /io/internal_camera/command
 ...
 ```
+### Set up git repository
+...
+$ git config --global user.name rachelmh
+$ git config --global user.email rachelmh@mit.edu
+
+...
 
 ### Install Packages for Browser
 ```
