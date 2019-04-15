@@ -29,13 +29,13 @@ $ cd rawhide
 ```
 $ sudo apt-get update
 $ sudo apt-get install git-core python-argparse python-vcstools python-rosdep ros-melodic-control-msgs ros-melodic-joystick-drivers ros-melodic-xacro ros-melodic-tf2-ros ros-melodic-rviz ros-melodic-cv-bridge ros-melodic-actionlib ros-melodic-actionlib-msgs ros-melodic-dynamic-reconfigure ros-melodic-trajectory-msgs ros-melodic-rospy-message-converter
-$ cd ~/teachbot/robot/src
+$ cd ~/rawhide/rawhide_ws/src
 $ wstool init .
 $ git clone https://github.com/RethinkRobotics/sawyer_robot.git
 $ wstool merge sawyer_robot/sawyer_robot.rosinstall
 $ wstool update
 $ source /opt/ros/melodic/setup.bash
-$ cd ~/teachbot/robot
+$ cd ~/rawhide/rawhide_ws
 $ catkin_make
 ```
 
@@ -54,7 +54,7 @@ You will not be able to use that ethernet port to access the internet until you 
 ### Set Up Intera
 Copy the `intera.sh` file into your ros workspace
 ```
-$ cp ~/teachbot/robot/src/intera_sdk/intera.sh ~/teachbot/robot
+$ cp ~/rawhide/rawhide_ws/src/intera_sdk/intera.sh ~/rawhide/rawhide_ws
 ```
 
 Now you'll need to edit three lines of `intera.sh` specific to your system.
@@ -86,7 +86,7 @@ Save and close `intera.sh` script.
 
 ### Verify Environment
 ```
-$ cd ~/teachbot/robot
+$ cd ~/rawhide/rawhide_ws
 $ ./intera.sh
 ```
 
