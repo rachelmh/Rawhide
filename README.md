@@ -146,13 +146,31 @@ $ git config --global user.email rachelmh@mit.edu
 ```
 
 
-### Install Packages for Browser
+### Install Other Stuff
 ```
-$ cd ~/teachbot/browser
-$ sudo apt-get install ros-melodic-rosbridge-suite
-$ curl -sL https://deb.nodesource.com/setup_10.x | sudo -E bash -
-$ sudo apt-get install -y nodejs
-$ npm install .
+cd ~/rawhide/rawhide_ws/src
+git clone https://github.com/rupumped/sawyer_pykdl.git
+cd ..
+catkin_make
+cd src
+git clone https://github.com/ros-industrial/robotiq.git
+ source ~/rawhide/rawhide_ws/devel/setup.bash
+rosdep install robotiq_modbus_tcp
+sudo apt-get install ros-melodic-soem
+cd ..
+rosdep install --from-paths src --ignore-src -r -y
+sudo usermod -a -G dialout $USER
+catkin_make
+
+
+```
+
+### Install Arduino
+Go to https://www.arduino.cc/en/Main/Software and download the file linux 64 bits
+extract the files in the /opt directory
+```
+cd /opt
+sudo ./install.sh
 ```
 
 ### Install Miscellaneous Packages
