@@ -1,0 +1,12 @@
+<launch>
+  <!--Run rosserial for the conveyor arduino-->
+	 <node name='arduino' pkg='rosserial_python' type='serial_node.py' args='/dev/ttyUSB9' respawn="true"/>
+
+   <!--Run rosserial for the conveyor arduino-->
+    <node name='gripper_p' pkg='robotiq_2f_gripper_control' type='Robotiq2FGripperRtuNode.py' args='/dev/ttyUSB1' respawn="true"/>
+
+    <!--Run rosserial for the conveyor arduino-->
+     <node name='sawyer_rr' pkg='sawyer_rr_bridge' type='poirot_host_RMH.py' respawn="true">
+		 <!--param name="Port" value="40369"-->
+		 </node>
+</launch>
