@@ -168,10 +168,21 @@ catkin_make
 ### Install Arduino
 Go to https://www.arduino.cc/en/Main/Software and download the file linux 64 bits
 extract the files in the /opt directory
+
+
+NO
+
+GO to ubuntu software center and install it from there
 ```
 cd /opt
 sudo ./install.sh
 ```
+### Install Ros Serial for Arduino
+go to http://wiki.ros.org/rosserial_arduino/Tutorials/Arduino%20IDE%20Setup
+```
+cd ~/rawhide/rawhide_ws/src
+cd ..
+catkin_make
 
 ### Install Miscellaneous Packages
 ```
