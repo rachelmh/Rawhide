@@ -1,5 +1,5 @@
 # rawhide
-# TeachBot
+
 
 ## First Setup Only
 The following is adapted from http://sdk.rethinkrobotics.com/intera/Workstation_Setup and http://wiki.ros.org/melodic/Installation/Ubuntu for Ubuntu 18.04 and ROS Melodic.
@@ -21,8 +21,8 @@ $ sudo apt install python-rosinstall python-rosinstall-generator python-wstool b
 If you change the directory, make sure you adjust all following commands.
 ```
 $ cd
-$ git clone git@github.mit.edu:nselby/teachbot.git
-$ cd teachbot
+$ git clone https://github.com/rachelmh/rawhide.git
+$ cd rawhide
 ```
 
 ### Install Intera
