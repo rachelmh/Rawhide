@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<robot name="sphere">
+  <link name="base_link_sphere">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0 "/>
+      <mass value="0"/>
+      <inertia ixx=".001" ixy=".001" ixz=".001" iyy=".001" iyz=".001" izz=".001"/>
+    </inertial>
+    <visual>
+      <geometry>
+        <sphere radius="0.01"/>
+      </geometry>
+      <material name="green">
+            <color rgba="0 1 0 1"/>
+      </material>
+    </visual>
+  </link>
+</robot>

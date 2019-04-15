@@ -11,9 +11,9 @@ request = fcl.CollisionRequest()
 result = fcl.CollisionResult()
 from tf.transformations import quaternion_from_euler
 import math
-# def update_stl(joints):
+# def update_stl(joints):,,
 #     for body in bodies:
-#         #1. find pose of that body
+#         #1. find pose of that bodysudo npm install
 #         #2. update pose of collision object
 
 # def check_collision(env, robot):
@@ -286,4 +286,3 @@ print("collision: ", is_collision(table.collision_object, gripper.collision_obje
 
 # import pdb;
 # pdb.set_trace()
-

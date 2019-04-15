@@ -10,9 +10,9 @@ pybullet.resetSimulation()
 import pybullet_data
 pybullet.setAdditionalSearchPath(pybullet_data.getDataPath())
 plane = pybullet.loadURDF("plane.urdf",basePosition=[0,0,-1])
-sawyer1=pybullet.loadURDF('/home/rachel/Desktop/RMH_CODE/pybullet_robots-master/data/sawyer_robot/sawyer_description/urdf/sawyer_rmh.urdf',basePosition=[0,-.35,0])
-sawyer2=pybullet.loadURDF('/home/rachel/Desktop/RMH_CODE/pybullet_robots-master/data/sawyer_robot/sawyer_description/urdf/sawyer_rmh.urdf',basePosition=[0,.35,0])
-cabinet=pybullet.loadURDF('/home/rachel/Desktop/RMH_CODE/cylinder_wire.urdf',basePosition=[1,0,0])
+sawyer1=pybullet.loadURDF('/home/rachel/rawhide/rmh_code/pybullet_robots-master/data/sawyer_robot/sawyer_description/urdf/sawyer_rmh.urdf',basePosition=[0,-.35,0],useFixedBase=1)
+sawyer2=pybullet.loadURDF('/home/rachel/rawhide/rmh_code/pybullet_robots-master/data/sawyer_robot/sawyer_description/urdf/sawyer_rmh.urdf',basePosition=[0,.35,0],useFixedBase=1)
+cabinet=pybullet.loadURDF('/home/rachel/rawhide/rmh_code/cylinder_wire.urdf',basePosition=[1,0,0],useFixedBase=1)
 #cabinet=pybullet.loadURDF('/home/rachel/Desktop/RMH_CODE/cabinet_test.urdf',basePosition=[1,1,0])
 # target1=[j[0] for j in pybullet.getJointStates(sawyer1, sj)]
 targetpos1_1=[0,0,0,0,0,0,0]
@@ -30,6 +30,7 @@ sj=[3,8,9,10,11,13,16]
 time.sleep(10)
 # import pdb;
 # pdb.set_trace()
+pybullet.setTimeStep(0.0001)
 for i in range(len(target2)):
     for j in range(len(target2[i])):
 
@@ -37,7 +38,7 @@ for i in range(len(target2)):
         pybullet.resetJointState(sawyer1,sj[j],target1[i][j])
         pybullet.resetJointState(sawyer2,sj[j],target2[i][j])
         pybullet.resetBasePositionAndOrientation(cabinet,[1,0,0],[0,0,0,1])
-    time.sleep(5)
+    time.sleep(.01)
     print('reset')
     pybullet.setJointMotorControlArray(sawyer1,sj,pybullet.POSITION_CONTROL,targetPositions=target1[i])
     pybullet.setJointMotorControlArray(sawyer2,sj,pybullet.POSITION_CONTROL,targetPositions=target1[i])
@@ -48,9 +49,9 @@ for i in range(len(target2)):
     cp3= pybullet.getContactPoints(sawyer2,cabinet)
 
     if len(cp)>0:
-        print('Collision!')
+        print('sawyer1 sawyer2 collision!')
     else:
-        print('no collision')
+        print('no sawyer1 sawyer2 collision')
 
     if len(cp2)>0:
         print('Sawyer 1 Cabinet Collision!')
@@ -61,14 +62,15 @@ for i in range(len(target2)):
         print('Sawyer 2 Cabinet Collision!')
     else:
         print('no Sawyer 2 Cabinet collision')
-
+    time.sleep(3)
     #time.sleep(5)
 
 pybullet.resetBasePositionAndOrientation(cabinet,[1,0,0],[0,0,0,1])
 
-
-
-
+#world_position, world_orientation = pybullet.getLinkState(robot, 2)[:2]
+#pybullet.setGravity(0, 0, -9.81)   # everything should fall down
+#pybullet.setTimeStep(0.0001)
+pybullet.disconnect()
 while 1:
     pass
 

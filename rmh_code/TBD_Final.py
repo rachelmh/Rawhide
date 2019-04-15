@@ -1,7 +1,7 @@
 
 #! /usr/bin/env python
 import pdb
-#import rospy
+import rospy
 import argparse
 import numpy
 
@@ -217,7 +217,7 @@ def DA_Move_To_Position(robot1,robot2,positions1,positions2,speed):
 		#if vel_max < vel_threshold:
 		# position threshold from sawyer settings 0.0087
 		# if (curr_max1) < .0087 and (curr_max1) < .0087 :
-		if (curr_max1) < .02 and (curr_max2) < .02 :
+		if (curr_max1) < .08 and (curr_max2) < .08 :
 			if vel_max1 < .08 and vel_max2 < .08:
 				max_counter=max_counter+1
 
@@ -242,10 +242,10 @@ def record_sequence(robot1,robot2):
 	noinput=1
 	button=0
 	while repeatflag==1 :
-		robot1.robot.setDisplayImage('/home/rachel/rawhide/rmh_code/TBD_images/tostart.png')
-		robot2.robot.setDisplayImage('/home/rachel/rawhide/rmh_code/TBD_images/tostart.png')
-		print('to start recording sequence, press scroll wheel')
-		while robot1.robot.OkWheelButton==0:
+		robot1.robot.setDisplayImage('/home/rachel/rawhide/rmh_code/TBD_images/startrecording.png')
+		robot2.robot.setDisplayImage('/home/rachel/rawhide/rmh_code/TBD_images/startrecording.png')
+		print('to start recording sequence, press Red Button')
+		while robot1.robot.PB1==0 and robot1.robot.PB3==0:
 			time.sleep(.01)
 		robot1.robot.setDisplayImage('/home/rachel/rawhide/rmh_code/TBD_images/stoprecord.png')
 		robot2.robot.setDisplayImage('/home/rachel/rawhide/rmh_code/TBD_images/stoprecord.png')
@@ -266,10 +266,11 @@ def record_sequence(robot1,robot2):
 		robot2.robot.setDisplayImage('/home/rachel/rawhide/rmh_code/TBD_images/recordanother.png')
 
 		print('get button')
-		button=xorscroll(robot1)
+		#button=xorscroll(robot1)
+		button=redorblue(robot1,robot2)
 		print('gotbutton')
 		time.sleep(1)
-		if button=='x':
+		if button=='blue':
 			repeatflag=0
 		time.sleep(.2)
 
@@ -293,7 +294,7 @@ def record(robot1,robot2,filename):
 	If a file exists, the function will overwrite existing file.
     """
 
-	recrate=.003
+	recrate=.1#.003
 	time.sleep(1)
 	robot1.robot.setDisplayImage('/home/rachel/rawhide/rmh_code/TBD_images/3.png')
 	robot2.robot.setDisplayImage('/home/rachel/rawhide/rmh_code/TBD_images/3.png')
@@ -309,6 +310,9 @@ def record(robot1,robot2,filename):
 
 	robot1.currpos=robot1.get_current_joint_positions()
 	robot2.currpose=robot2.get_current_joint_positions()
+	grippos=[robot1.robot.gripperPos,robot2.robot.gripperPos]
+	angles_right1=numpy.concatenate((robot1.currpos, robot2.currpose))
+	angles_right_start=numpy.concatenate((angles_right1,grippos))
 	robot1.SetControlMode(0)
 	robot2.SetControlMode(0)
 	checkcuffbutton(robot1,robot2)
@@ -317,6 +321,13 @@ def record(robot1,robot2,filename):
 
 		with open(filename, 'w') as f:
 			start_time=time.time()
+
+
+			#print(angles_right,grippos)
+			temp_str =  '\n'
+			f.write("%f," % (time_stamp(start_time),))
+			#f.write(','.join([str(x) for x in angles_right]) +  temp_str)
+			f.write(','.join([str(x) for x in angles_right_start]) +  temp_str)
 			#robot1.SetControlMode(0)
 			# robot1.SetControlMode(2)
 			# robot2.SetControlMode(2)
@@ -326,20 +337,36 @@ def record(robot1,robot2,filename):
 				checkcuffbutton(robot1,robot2)
 				robot1.robot.setDisplayImage('/home/rachel/rawhide/rmh_code/TBD_images/stoprecord.png')
 				robot2.robot.setDisplayImage('/home/rachel/rawhide/rmh_code/TBD_images/stoprecord.png')
-
+				print('vels',robot1.get_current_joint_velocity())
 				#robot1.Set_Torques([0,0,0,0,0,0,0])
 				#robot2.Set_Torques([0,0,0,0,0,0,0])
 				#print('recording',robot1.doneflag)
 				temp_str =  '\n'
 				angles_rob1 = robot1.get_current_joint_positions()
 				angles_rob2 = robot2.get_current_joint_positions()
-				angles_right=numpy.concatenate((angles_rob1, angles_rob2))
-				print(angles_right)
+				vels_rob1=robot1.get_current_joint_velocity()
+				vels_rob2=robot2.get_current_joint_velocity()
+				grippos=[robot1.robot.gripperPos,robot2.robot.gripperPos]
+
+				angles_right1=numpy.concatenate((angles_rob1, angles_rob2))
+				angles_right=numpy.concatenate((angles_right1,grippos))
+
+				vels_right1=numpy.concatenate((vels_rob1, vels_rob2))
+				vels_right=numpy.concatenate((vels_right1,grippos))
+				#print(angles_right,grippos)
 				f.write("%f," % (time_stamp(start_time),))
-				f.write(','.join([str(x) for x in angles_right]) +  temp_str)
+				#f.write(','.join([str(x) for x in angles_right]) +  temp_str)
+				f.write(','.join([str(x) for x in vels_right]) +  temp_str)
 				#print(','.join([str(x) for x in angles_right]) +  temp_str)
 				# f.write(','.join([str(x) for x in angles_right]) + ',' + temp_str)
-				if robot1.robot.OkWheelButton==1:
+				if robot1.robot.PB1==1 or robot1.robot.PB3==1:
+					robot1.currpos=robot1.get_current_joint_positions()
+					robot2.currpose=robot2.get_current_joint_positions()
+					grippos=[robot1.robot.gripperPos,robot2.robot.gripperPos]
+					angles_right1=numpy.concatenate((robot1.currpos, robot2.currpose))
+					angles_right_start=numpy.concatenate((angles_right1,grippos))
+					f.write("%f," % (time_stamp(start_time),))
+					f.write(','.join([str(x) for x in angles_right]) +  temp_str)
 					robot1.doneflag=True
 
 				time.sleep(recrate)
@@ -366,8 +393,8 @@ def playback_sequence(robot1,robot2,filename_list):
 	button='None'
 	robot1.robot.setDisplayImage('/home/rachel/rawhide/rmh_code/TBD_images/beginplayback.png')
 	robot2.robot.setDisplayImage('/home/rachel/rawhide/rmh_code/TBD_images/beginplayback.png')
-	print('press ok wheel to  begin playback')
-	while not robot1.robot.OkWheelButton:
+	print('press red button to  begin playback')
+	while not robot1.robot.PB1 and robot1.robot.PB3:
 		time.sleep(.1)
 
 	# import pdb;
@@ -377,8 +404,9 @@ def playback_sequence(robot1,robot2,filename_list):
 		playback(robot1,robot2,name)
 		robot1.robot.setDisplayImage('/home/rachel/rawhide/rmh_code/TBD_images/makeadjustments.png')
 		robot2.robot.setDisplayImage('/home/rachel/rawhide/rmh_code/TBD_images/makeadjustments.png')
-		button=xorscroll(robot1)
-		if button == 'scroll':
+		#button=xorscroll(robot1)
+		button=redorblue(robot1,robot2)
+		if button == 'red':
 
 			editplaybackfile(robot1,robot2,name)
 
@@ -400,11 +428,16 @@ def playback(robot1,robot2,filename):
 	#lines[-1] to get timestamp
 	startpos=numpy.array(lines[0].rstrip().split(','))
 	startjointgoal=startpos.astype(numpy.float)
+	endpos=numpy.array(lines[-1].rstrip().split(','))
+	endjointgoal=endpos.astype(numpy.float)
 	print('moving to starting pos')
 	robot1.robot.setDisplayImage('/home/rachel/rawhide/rmh_code/TBD_images/playbackmoving.png')
 	robot2.robot.setDisplayImage('/home/rachel/rawhide/rmh_code/TBD_images/playbackmoving.png')
 
 	DA_Move_To_Position(robot1,robot2,startjointgoal[1:8],startjointgoal[8:15],.2)
+
+	robot1.robot.setGRIPpos(startjointgoal[15])
+	robot2.robot.setGRIPpos(startjointgoal[16])
 
 	#for rev playback,extract timestamp of reversed(lines)[0], this is offset time.
 	#so then in the forloop, need to edit currjointgoal[0] = abs(currjointgoal[0]-offsettime).
@@ -415,29 +448,46 @@ def playback(robot1,robot2,filename):
 
 
 	for l in lines:  #in reversed(lines) for reverse playback?
+		#pdb.set_trace()
 		currtime=time.time()
 		nums=numpy.array(l.rstrip().split(','))
 
 		currjointgoal=nums.astype(numpy.float)
 		jointgoal.append(currjointgoal)
 
+
+	jointgoal.remove
 	time.sleep(0.5)
 	robot1.robot.setControlMode(0)
 	robot2.robot.setControlMode(0)
 	robot1.robot.setPositionModeSpeed(1)
 	robot2.robot.setPositionModeSpeed(1)
+
+
+
 	starttime=time.time()
 
+	#remove start and last joint pos from jointgoal
+	del jointgoal[0]
+	del jointgoal[-1]
+	robot1.robot.setControlMode(1)
+	robot2.robot.setControlMode(1)
 	for goal in jointgoal:
 
 		robot1.robot.setJointCommand( 'right',goal[1:8])
 		robot2.robot.setJointCommand('right', goal[8:15])
-
+		print('setgrippos')
+		robot1.robot.setGRIPpos(goal[15])
+		robot2.robot.setGRIPpos(goal[16])
 		while (abs(time.time() - starttime) <goal[0]):
 
 			time.sleep(0.001)
 
-
+	robot1.robot.setControlMode(0)
+	robot2.robot.setControlMode(0)
+	DA_Move_To_Position(robot1,robot2,endjointgoal[1:8],endjointgoal[8:15],.2)
+	robot1.robot.setPositionModeSpeed(1)
+	robot2.robot.setPositionModeSpeed(1)
 	robot1.currpos=robot1.get_current_joint_positions()
 	robot2.currpos=robot2.get_current_joint_positions()
 	robot1.robot.setJointCommand('right',robot1.currpos)
@@ -458,8 +508,14 @@ def editplaybackfile(robot1,robot2,filename):
 	endpos=numpy.array(lines[-1].rstrip().split(','))
 	startjointgoal=startpos.astype(numpy.float)
 	endjointgoal=endpos.astype(numpy.float)
+	with open(filename, 'w') as f:
+		for i in range(len(lines)-1):
+			f.write(lines[i])
+	pdb.set_trace()
 	print('moving to starting pos')
 	DA_Move_To_Position(robot1,robot2,endjointgoal[1:8],endjointgoal[8:15],.2)
+	robot1.robot.setGRIPpos(endjointgoal[15])
+	robot2.robot.setGRIPpos(endjointgoal[16])
 	endingtime=endjointgoal[0]
 	print('endingtime',endingtime)
 	time.sleep(4)
@@ -475,7 +531,7 @@ def editplaybackfile(robot1,robot2,filename):
 		time.sleep(1)
 
 		print('recording now!')
-
+		robot1.robot.setDisplayImage('/home/rachel/rawhide/rmh_code/TBD_images/stoprecord.png')
 		# robot1.currpos=robot1.get_current_joint_positions()
 		# robot2.currpose=robot2.get_current_joint_positions()
 		robot1.SetControlMode(0)
@@ -484,26 +540,61 @@ def editplaybackfile(robot1,robot2,filename):
 		robot2.robot.setPositionModeSpeed(.2)
 		checkcuffbutton(robot1,robot2)
 		robot1.doneflag=False
+		temp_str =  '\n'
+		angles_rob1 = robot1.get_current_joint_positions()
+		angles_rob2 = robot2.get_current_joint_positions()
+		angles_right1=numpy.concatenate((angles_rob1, angles_rob2))
+		vels_rob1=robot1.get_current_joint_velocity()
+		vels_rob2=robot2.get_current_joint_velocity()
+		vels_right1=numpy.concatenate((vels_rob1, vels_rob2))
+		grippos=[robot1.robot.gripperPos,robot2.robot.gripperPos]
+		vels_right=numpy.concatenate((vels_right1,grippos))
 
+		angles_right=numpy.concatenate((angles_right1,grippos))
 		start_time=time.time()
+		#f.write("%f," % (time_stamp(start_time)+endingtime,))
+		#f.write(','.join([str(x) for x in angles_right]) +  temp_str)
+		#start_time=time.time()
 		#robot1.SetControlMode(0)
 		# robot1.SetControlMode(2)
 		# robot2.SetControlMode(2)
 
-		robot1.robot.setDisplayImage('/home/rachel/rawhide/rmh_code/TBD_images/stoprecord.png')
+
 		while not robot1.doneflag:
 			checkcuffbutton(robot1,robot2)
 			temp_str =  '\n'
 			angles_rob1 = robot1.get_current_joint_positions()
 			angles_rob2 = robot2.get_current_joint_positions()
-			angles_right=numpy.concatenate((angles_rob1, angles_rob2))
+			angles_right1=numpy.concatenate((angles_rob1, angles_rob2))
+			grippos=[robot1.robot.gripperPos,robot2.robot.gripperPos]
+
+			#angles_right1=numpy.concatenate((angles_rob1, angles_rob2))
+			angles_right=numpy.concatenate((angles_right1,grippos))
 			#print(angles_right)
 			#print(time_stamp(start_time+endingtime), time_stamp(start_time))
+			vels_rob1=robot1.get_current_joint_velocity()
+			vels_rob2=robot2.get_current_joint_velocity()
+			vels_right1=numpy.concatenate((vels_rob1, vels_rob2))
+			vels_right=numpy.concatenate((vels_right1,grippos))
 			f.write("%f," % (time_stamp(start_time)+endingtime,))
-			f.write(','.join([str(x) for x in angles_right]) +  temp_str)
+			f.write(','.join([str(x) for x in vels_right]) +  temp_str)
 			#print(','.join([str(x) for x in angles_right]) +  temp_str)
 			# f.write(','.join([str(x) for x in angles_right]) + ',' + temp_str)
-			if robot1.robot.OkWheelButton==1:
+			if robot1.robot.PB1==1 or robot1.robot.PB3==1:
+				temp_str =  '\n'
+				angles_rob1 = robot1.get_current_joint_positions()
+				angles_rob2 = robot2.get_current_joint_positions()
+				angles_right1=numpy.concatenate((angles_rob1, angles_rob2))
+				vels_rob1=robot1.get_current_joint_velocity()
+				vels_rob2=robot2.get_current_joint_velocity()
+				vels_right1=numpy.concatenate((vels_rob1, vels_rob2))
+				vels_right=numpy.concatenate((vels_right1,grippos))
+				grippos=[robot1.robot.gripperPos,robot2.robot.gripperPos]
+
+				angles_right=numpy.concatenate((angles_right1,grippos))
+
+				f.write("%f," % (time_stamp(start_time)+endingtime,))
+				f.write(','.join([str(x) for x in angles_right]) +  temp_str)
 				robot1.doneflag=True
 
 			time.sleep(recrate)
@@ -524,7 +615,7 @@ def editplaybackfile(robot1,robot2,filename):
 
 def checkcuffbutton(robot1,robot2):
 
-	if robot1.robot.CuffButton==1:
+	if robot1.robot.CuffButton==1 or robot2.robot.CuffButton==1:
 		robot1.currpos=robot1.get_current_joint_positions()
 		robot2.currpos=robot2.get_current_joint_positions()
 		robot1.SetControlMode(0)
@@ -558,6 +649,27 @@ def xorscroll(robot1):
 		if scrollflag==1:
 			return('scroll')
 		time.sleep(.01)
+def redorblue(robot1,robot2):
+	redflag=0
+	blueflag=0
+	time.sleep(.25)
+	while redflag==0 and blueflag==0:
+		#print(robot1.robot.PB3,robot1.robot.PB1,robot1.robot.PB2,robot1.robot.PB4)
+		redflag1=robot1.robot.PB3
+		redflag2=robot1.robot.PB1
+		blueflag1=robot1.robot.PB2
+		blueflag2=robot1.robot.PB4
+		if redflag1== 1 or redflag2 == 1:
+			redflag=1
+
+		if blueflag1== 1 or blueflag2 == 1:
+			blueflag=1
+
+		if redflag==1:
+			return('red')
+		if blueflag==1:
+			return('blue')
+		time.sleep(.01)
 
 def move_to_wire_ready_pos(robot1,robot2):
 	DA_Move_To_Position(robot1,robot2,[0, -1.18, 0, 2.6, 0, 0, 3.3],[0, -1.18, 0, 2.6, 0,0,3.3],.2)
@@ -566,7 +678,10 @@ def move_to_wire_ready_pos(robot1,robot2):
 
 def grab_wire_ret_to_neut(robot1,robot2):
 	move_to_wire_ready_pos(robot1,robot2)
-	xorscroll(robot1)
+	#xorscroll(robot1)
+	robot1.robot.setDisplayImage('/home/rachel/rawhide/rmh_code/TBD_images/grabwire.png')
+	robot2.robot.setDisplayImage('/home/rachel/rawhide/rmh_code/TBD_images/grabwire.png')
+	redorblue(robot1,robot2)
 	DA_Move_To_Position(robot1,robot2,[0, -2, 0, 0, 0, 2.5, 3.3],[0, -2, 0, 0, 0,2.5,3.3],.2)
 	DA_Move_To_Position(robot1,robot2,[0, -1.18, 0, 2.6, 0, 0, 3.3],[0, -1.18, 0, 2.6, 0,0,3.3],.2)
 
@@ -584,6 +699,10 @@ def main():
 
 	poirot.robot.setPositionModeSpeed(.2)
 	captain.robot.setPositionModeSpeed(.2)
+	prevr1=0
+	prevr2=0
+	prevb1=0
+	prevb2=0
 	prevwheel=0
 	prevx=0
 	fileiter=0
@@ -592,20 +711,29 @@ def main():
 	done_recording_flag=0
 	totallydoneflag=0
 	wire_ready_pos= [3, -1.18, 0, 2.6, 0, 0, 3.3]
-	pdb.set_trace()
+
+		#print('button',poirot.robot.PB1,poirot.robot.PB2)
+
 	#DA_Move_To_Position(poirot,captain,[0,.1,.1,0,0,0,0],[0,.1,.1,0,0,0,0])
 	#DA_Move_To_Position(poirot,captain,[0, 0, 0, 2.2, 0,'tcp://localhost:35473/SawyerRMHServer/Sawyer' -.5, 3.3],[0, 0, 0, 2.2, 0,-.5,3.3])
+	poirot.robot.setGRIPpos(0)
+	#pdb.set_trace()
 
+	time.sleep(.5)
+	print('move to small pos')
 	DA_Move_To_Position(poirot,captain,[0, -1.18, 0, 2.6, 0, 0, 3.3],[0, -1.18, 0, 2.6, 0,0,3.3],.2)
-	grab_wire_ret_to_neut(poirot,captain)
+	print('get wire')
+	time.sleep(.5)
 
-	pdb.set_trace()
-	DA_Move_To_Position(poirot,captain,wire_ready_pos,wire_ready_pos,.2)
-	while True:
-		print('poirot jointpos',poirot.robot.joint_positions)
-		time.sleep(.5)
+	#grab_wire_ret_to_neut(poirot,captain)
 
-	pdb.set_trace()
+
+
+
+	#DA_Move_To_Position(poirot,captain,wire_ready_pos,wire_ready_pos,.2)
+
+
+	#pdb.set_trace()
 
 	#DA_Move_To_Position(poirot,captain,[0, -1.18, 0, 2.2, 0, -.5, 3.3],[0, -1.18, 0, 2.2, 0,-.5,3.3],.2)
 	#DA_Move_To_Position(poirot,captain,[.5, -1.18, 0, 2.2, 0, -.5, 3.3],[0, -1.18, 0, 2.2, 0,-.5,3.3])
@@ -616,6 +744,8 @@ def main():
 	captain.currpos=captain.get_current_joint_positions()
 	wpress=0
 	xpress=0
+	rpress=0
+	bpress=0
 	button='None'
 
 
@@ -626,33 +756,68 @@ def main():
 
 		curr_wheel=poirot.robot.OkWheelButton
 		curr_x=poirot.robot.XButton
+		curr_red1=poirot.robot.PB1
+		curr_red2=poirot.robot.PB3
+		curr_blue1=poirot.robot.PB2
+		curr_blue2=poirot.robot.PB4
+
 		checkcuffbutton(poirot,captain)
 
-		wpress=check_button_press(prevwheel,poirot.robot.OkWheelButton)
-		xpress=check_button_press(prevx,poirot.robot.XButton)
-		print('wpress', wpress)
+		r1press=check_button_press(prevwheel,poirot.robot.PB1)
+		r2press=check_button_press(prevwheel,poirot.robot.PB3)
+		b1press=check_button_press(prevwheel,poirot.robot.PB2)
+		b2press=check_button_press(prevwheel,poirot.robot.PB4)
+
+		# wpress=check_button_press(prevwheel,poirot.robot.OkWheelButton)
+		# xpress=check_button_press(prevx,poirot.robot.XButton)
+
+		#print('buttpress',r1press,r2press,b1press,b2press)
+
 		if done_recording_flag==0:
 			poirot.robot.setDisplayImage('/home/rachel/rawhide/rmh_code/TBD_images/torecord.png')
 			captain.robot.setDisplayImage('/home/rachel/rawhide/rmh_code/TBD_images/torecord.png')
-			print('to record, press the scroll wheel. Waiting')
-			wpress=check_button_press(prevwheel,poirot.robot.OkWheelButton)
+			print('to record, press the red button, to quit press the blue button Waiting')
+			#
+			#
+			# r1press=check_button_press(prevr1,poirot.robot.PB1)
+			# r2press=check_button_press(prevr2,poirot.robot.PB3)
+			# b1press=check_button_press(prevb1,poirot.robot.PB2)
+			# b2press=check_button_press(prevb2,poirot.robot.PB4)
+			#
+			# if r1press==1 or r2press==1:
+			# 	rpress=1
+			# if b1press==1 or b2press==1:
+			# 	bpress=1
+			button=redorblue(poirot,captain)
+			#print('button',button)
+			if button=='red':
+				#print('red press')
+				rpress=1
 
-			if wpress==1:
+			else:
+				playback_flag=1
+				done_recording_flag=1
+			#wpress=check_button_press(prevwheel,poirot.robot.OkWheelButton)
+
+			if rpress==1:# wpress==1:
 				print(1)
+
 				time.sleep(1)
 				filename_list=record_sequence(poirot,captain)
 				poirot.robot.setDisplayImage('/home/rachel/rawhide/rmh_code/TBD_images/keep_redo.png')
 				captain.robot.setDisplayImage('/home/rachel/rawhide/rmh_code/TBD_images/keep_redo.png')
 				print('done recording!')
-				print('To keep the sequence, press scroll wheel. TO redo sequence press x button')
+				print('To keep the sequence, press red button. To redo sequence press blue button')
 				time.sleep(.2)
-				button=xorscroll(poirot)
+				#button=xorscroll(poirot)
+				button=redorblue(poirot,captain)
 				print('button1',button)
 				#time.sleep(1)
-				if button=='scroll':
+				if button=='red':
 					done_recording_flag=1
 			else:
 				pass
+
 
 
 
@@ -663,19 +828,21 @@ def main():
 					poirot.robot.setDisplayImage('/home/rachel/rawhide/rmh_code/TBD_images/torecord_toplayback.png')
 					captain.robot.setDisplayImage('/home/rachel/rawhide/rmh_code/TBD_images/torecord_toplayback.png')
 					print('to record, press scrollwheel. To playback press x button')
-					button=xorscroll(poirot)
-					if button=='scroll':
+					#button=xorscroll(poirot)
+					button=redorblue(poirot,captain)
+					if button=='red':
 						done_recording_flag= 0
-					if button == 'x':
+					if button == 'blue':
 						print('playback here!')
 						playback_sequence(poirot,captain,filename_list)
 						time.sleep(.1)
 						poirot.robot.setDisplayImage('/home/rachel/rawhide/rmh_code/TBD_images/playbackagain.png')
 						captain.robot.setDisplayImage('/home/rachel/rawhide/rmh_code/TBD_images/playbackagain.png')
-						button=xorscroll(poirot)
-						if button=='scroll':
+						#button=xorscroll(poirot)
+						button=redorblue(poirot,captain)
+						if button=='red':
 							print("playback again!")
-						if button == 'x':
+						if button == 'blue':
 							playback_flag=1
 							print("Done playing back")
 
@@ -685,7 +852,8 @@ def main():
 
 				poirot.robot.setDisplayImage('/home/rachel/rawhide/rmh_code/TBD_images/doneexecuting.png')
 				captain.robot.setDisplayImage('/home/rachel/rawhide/rmh_code/TBD_images/doneexecuting.png')
-				DA_Move_To_Position(poirot,captain,[0, -1.18, 0, 2.2, 0, -.5, 3.3],[0, -1.18, 0, 2.2, 0,-.5,3.3],.2)
+				#DA_Move_To_Position(poirot,captain,[0, -1.18, 0, 2.2, 0, -.5, 3.3],[0, -1.18, 0, 2.2, 0,-.5,3.3],.2)
+				DA_Move_To_Position(poirot,captain,[0, -1.18, 0, 2.6, 0, 0, 3.3],[0, -1.18, 0, 2.6, 0,0,3.3],.2)
 				print('totally done!')
 
 				#writefilename list to file
@@ -702,6 +870,10 @@ def main():
 
 		prevwheel=curr_wheel
 		prevx=curr_x
+		prevr1=curr_red1
+		prevr2=curr_red2
+		prevb1=curr_blue1
+		prevb2=curr_blue2
 		t1=time.time()
 
 		while (abs(time.time() - t1) <poirot.rate):
