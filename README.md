@@ -261,6 +261,12 @@ check to see which port the arduino is plugged in then open a terminal running r
 
 
 ### Install Robot Raconteur
+
+Install dependencies
+```
+apt-get install default-jdk default-jdk-headless default-jre default-jre-headless python2.7-minimal libpython2.7 python2.7-dev libpython2.7-dev libssl1.0.0 zlib1g zlib1g-dev libssl-dev libusb-1.0-0 libusb-1.0-0-dev libdbus-1-3 libdbus-1-dev libbluetooth3 libbluetooth-dev zlib1g zlib1g-dev python-numpy python-setuptools python-wheel git cmake-qt-gui g++ make libboost-all-dev autoconf automake libtool bison libpcre3-dev
+```
+
 First go to http://www.robotraconteur.com/download/. You will have to create a username and password.
 Once inside, scroll down to find RobotRaconteur-0.8.1-beta-Python.linux-x86_64-py2.7-2016-07-18.tar.gz  (or RobotRaconteur-0.8.1-beta-Python.linux-i686-py2.7-2016-07-18.tar.gz depending on your computer)
 Download the file.
@@ -268,7 +274,7 @@ Download the file.
 Then
 ```
 cd /
-sudo tar xvzf RobotRaconteur-0.8.1-beta-Python.linux-i686-py2.7-2016-07-18.tar.gz
+sudo tar xvzf /home/rachel/Downloads/RobotRaconteur-0.8.1-beta-Python.linux-x86_64-py2.7-2016-07-18.tar.gz
 ```
 
 Robot raconteur also requires pyserial and numpy.
@@ -279,6 +285,7 @@ sudo apt-get install python-serial python-numpy python-opencv python-pygame
 
 
 ### Getting ready to launch everything
+
 I have made several launch files to help starting up the code simpler, but first we need to make sure all of the ports are set.
 
 
@@ -313,12 +320,29 @@ cd ~/rawhide/rawhide_ws
  ./fullsystem_rmh.sh 
  ```
  Two additional tabs should have opened, one .sh'd into Poirot, one .sh'd into Captain
- In the poirot termina,
+ In the poirot terminal
  
- '''
+```
  source ~/rawhide/rawhide_ws/devel/setup.bash
 roslaunch  poirot_launch.launch
 ```
+ In the captain terminal
+```
+ source ~/rawhide/rawhide_ws/devel/setup.bash
+roslaunch  captain_launch.launch
+```
+
+In the original Terminal
+
+```
+ source ~/rawhide/rawhide_ws/devel/setup.bash
+ cd ~rawhide/rmh_code
+ python TBD_4_4.py
+ 
+ ```
+
+
+
 
 
 
