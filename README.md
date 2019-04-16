@@ -171,18 +171,20 @@ First check to see which ports the grippers are connected to by using
 dmesg | grep ttyUSB
 ```
 For me, when I have nothing but one gripper plugged in I see:
+```
 [  307.969155] usb 1-4: FTDI USB Serial Device converter now attached to ttyUSB0
 [  307.970078] usb 1-4: FTDI USB Serial Device converter now attached to ttyUSB1
-
+```
 Make sure you use the higher number usb port when commanding the gripper.
 
 When I have both grippers and the arduino plugged in via USB I see:
+```
  usb 1-4: FTDI USB Serial Device converter now attached to ttyUSB0
  usb 1-4: FTDI USB Serial Device converter now attached to ttyUSB1
 usb 1-3: FTDI USB Serial Device converter now attached to ttyUSB2
 usb 1-3: FTDI USB Serial Device converter now attached to ttyUSB3
 usb 1-2: FTDI USB Serial Device converter now attached to ttyUSB4
-
+```
 meaning that gripper1 should be commanded via ttyUSB1 and gripper2 should be commanded via ttyUSB3 and the arduino should be commanded via ttyUSB4. This should be remembered for later!!
 
 To test the connection:
@@ -194,16 +196,19 @@ cd ~/rawhide/rawhide_ws
 rosrun robotiq_2f_gripper_control Robotiq2FGripperRtuNode.py /dev/ttyUSB1
 ```
 The correct output should be
+```
  pub = rospy.Publisher('Robotiq2FGripperRobotInput', inputMsg.Robotiq2FGripper_robot_input)
+ ```
  
  You can also check the ros topics
  ```
  rostopic list
  ```
  In addition to seeing all of the sawyer topics (if you are running the grippers via ROS on the sawyer), you should be able to see
+ ```
  /Robotiq2FGripperRobotInput
 /Robotiq2FGripperRobotOutput
-
+```
 
 If you want to play around with the grippers, I recommend following this tutorial
 http://wiki.ros.org/robotiq/Tutorials/Control%20of%20a%202-Finger%20Gripper%20using%20the%20Modbus%20RTU%20protocol%20%28ros%20kinetic%20and%20newer%20releases%29
@@ -250,6 +255,7 @@ check to see which port the arduino is plugged in then open a terminal running r
  rosrun rosserial_python serial_node.py /dev/ttyUSB0
  ```
  If running properly, the output should be:
+ ```
  [INFO] [1555376406.861082]: ROS Serial Python Node
 [INFO] [1555376406.883253]: Connecting to /dev/ttyUSB2 at 57600 baud
 [INFO] [1555376408.993138]: Requesting topics...
@@ -258,7 +264,7 @@ check to see which port the arduino is plugged in then open a terminal running r
 [INFO] [1555376409.085425]: Setup publisher on pushed2 [std_msgs/Bool]
 [INFO] [1555376409.097274]: Setup publisher on pushed3 [std_msgs/Bool]
 [INFO] [1555376409.108392]: Setup publisher on pushed4 [std_msgs/Bool]
-
+```
 
 ### Install Robot Raconteur
 
@@ -301,12 +307,13 @@ captain_launch.launch
 Using your favorite editor, open poirot_launch.launch
 
 Make sure the rosserial arduino port matches what it actually is when plugged in.  Same for the gripper ttyUSB
+```
 <launch>
   <!--Run rosserial for the conveyor arduino-->
 	 <node name='arduino' pkg='rosserial_python' type='serial_node.py' args='/dev/ttyUSB4' respawn="true"/>
  
     <node name='gripper_p' pkg='robotiq_2f_gripper_control' type='Robotiq2FGripperRtuNode.py' args='/dev/ttyUSB3' respawn="true"/>
-    
+  ```  
     
 Once those are saved, we are ready to launch everything! You should make sure the launch files match with the ports every time you plugin/unplug the usbs for the grippers.
 
@@ -323,16 +330,16 @@ cd ~/rawhide/rawhide_ws
  In the poirot terminal
  
 ```
- source ~/rawhide/rawhide_ws/devel/setup.bash
+source ~/rawhide/rawhide_ws/devel/setup.bash
 roslaunch  poirot_launch.launch
 ```
  In the captain terminal
 ```
- source ~/rawhide/rawhide_ws/devel/setup.bash
+source ~/rawhide/rawhide_ws/devel/setup.bash
 roslaunch  captain_launch.launch
 ```
 
-In the original Terminal
+In the original Terminal to run the code
 
 ```
  source ~/rawhide/rawhide_ws/devel/setup.bash
