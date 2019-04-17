@@ -68,8 +68,6 @@ uint32 seq
 # time-handling sugar is provided by the client library
 time stamp
 #Frame this data is associated with
-# 0: no frame
-# 1: global frame
 string frame_id
 """
   __slots__ = ['header','name','commanded_position','commanded_velocity','commanded_acceleration','commanded_effort','actual_position','actual_velocity','actual_effort','gravity_model_effort','gravity_only','interaction_torque','hysteresis_model_effort','crosstalk_model_effort','hystState']

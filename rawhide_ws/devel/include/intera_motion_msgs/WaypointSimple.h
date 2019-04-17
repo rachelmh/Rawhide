@@ -92,7 +92,7 @@ namespace message_traits
 
 
 // BOOLTRAITS {'IsFixedSize': False, 'IsMessage': True, 'HasHeader': False}
-// {'intera_core_msgs': ['/home/rachel/rawhide/rawhide_ws/src/intera_common/intera_core_msgs/msg', '/home/rachel/rawhide/rawhide_ws/devel/share/intera_core_msgs/msg'], 'sensor_msgs': ['/opt/ros/kinetic/share/sensor_msgs/cmake/../msg'], 'actionlib_msgs': ['/opt/ros/kinetic/share/actionlib_msgs/cmake/../msg'], 'intera_motion_msgs': ['/home/rachel/rawhide/rawhide_ws/src/intera_common/intera_motion_msgs/msg', '/home/rachel/rawhide/rawhide_ws/devel/share/intera_motion_msgs/msg'], 'std_msgs': ['/opt/ros/kinetic/share/std_msgs/cmake/../msg'], 'geometry_msgs': ['/opt/ros/kinetic/share/geometry_msgs/cmake/../msg']}
+// {'intera_core_msgs': ['/home/rachel/rawhide/rawhide_ws/src/intera_common/intera_core_msgs/msg', '/home/rachel/rawhide/rawhide_ws/devel/share/intera_core_msgs/msg'], 'sensor_msgs': ['/opt/ros/melodic/share/sensor_msgs/cmake/../msg'], 'actionlib_msgs': ['/opt/ros/melodic/share/actionlib_msgs/cmake/../msg'], 'intera_motion_msgs': ['/home/rachel/rawhide/rawhide_ws/src/intera_common/intera_motion_msgs/msg', '/home/rachel/rawhide/rawhide_ws/devel/share/intera_motion_msgs/msg'], 'std_msgs': ['/opt/ros/melodic/share/std_msgs/cmake/../msg'], 'geometry_msgs': ['/opt/ros/melodic/share/geometry_msgs/cmake/../msg']}
 
 // !!!!!!!!!!! ['__class__', '__delattr__', '__dict__', '__doc__', '__eq__', '__format__', '__getattribute__', '__hash__', '__init__', '__module__', '__ne__', '__new__', '__reduce__', '__reduce_ex__', '__repr__', '__setattr__', '__sizeof__', '__str__', '__subclasshook__', '__weakref__', '_parsed_fields', 'constants', 'fields', 'full_name', 'has_header', 'header_present', 'names', 'package', 'parsed_fields', 'short_name', 'text', 'types']
 
@@ -159,44 +159,44 @@ struct Definition< ::intera_motion_msgs::WaypointSimple_<ContainerAllocator> >
 {
   static const char* value()
   {
-    return "# Representation of a waypoint returned during path interpolation\n\
-# Does not include extra options\n\
-\n\
-# Desired joint positions\n\
-float64[] joint_positions\n\
-\n\
-# Name of the endpoint that is currently active\n\
-string active_endpoint\n\
-\n\
-# Cartesian pose\n\
-geometry_msgs/Pose pose\n\
-\n\
-int32 segment_index\n\
-float64 time\n\
-\n\
-\n\
-================================================================================\n\
-MSG: geometry_msgs/Pose\n\
-# A representation of pose in free space, composed of position and orientation. \n\
-Point position\n\
-Quaternion orientation\n\
-\n\
-================================================================================\n\
-MSG: geometry_msgs/Point\n\
-# This contains the position of a point in free space\n\
-float64 x\n\
-float64 y\n\
-float64 z\n\
-\n\
-================================================================================\n\
-MSG: geometry_msgs/Quaternion\n\
-# This represents an orientation in free space in quaternion form.\n\
-\n\
-float64 x\n\
-float64 y\n\
-float64 z\n\
-float64 w\n\
-";
+    return "# Representation of a waypoint returned during path interpolation\n"
+"# Does not include extra options\n"
+"\n"
+"# Desired joint positions\n"
+"float64[] joint_positions\n"
+"\n"
+"# Name of the endpoint that is currently active\n"
+"string active_endpoint\n"
+"\n"
+"# Cartesian pose\n"
+"geometry_msgs/Pose pose\n"
+"\n"
+"int32 segment_index\n"
+"float64 time\n"
+"\n"
+"\n"
+"================================================================================\n"
+"MSG: geometry_msgs/Pose\n"
+"# A representation of pose in free space, composed of position and orientation. \n"
+"Point position\n"
+"Quaternion orientation\n"
+"\n"
+"================================================================================\n"
+"MSG: geometry_msgs/Point\n"
+"# This contains the position of a point in free space\n"
+"float64 x\n"
+"float64 y\n"
+"float64 z\n"
+"\n"
+"================================================================================\n"
+"MSG: geometry_msgs/Quaternion\n"
+"# This represents an orientation in free space in quaternion form.\n"
+"\n"
+"float64 x\n"
+"float64 y\n"
+"float64 z\n"
+"float64 w\n"
+;
   }
 
   static const char* value(const ::intera_motion_msgs::WaypointSimple_<ContainerAllocator>&) { return value(); }

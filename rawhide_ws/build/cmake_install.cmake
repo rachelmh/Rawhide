@@ -32,7 +32,12 @@ if(NOT DEFINED CMAKE_INSTALL_SO_NO_EXE)
   set(CMAKE_INSTALL_SO_NO_EXE "1")
 endif()
 
-if(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
+# Is this installation the result of a crosscompile?
+if(NOT DEFINED CMAKE_CROSSCOMPILING)
+  set(CMAKE_CROSSCOMPILING "FALSE")
+endif()
+
+if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
   
       if (NOT EXISTS "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}")
         file(MAKE_DIRECTORY "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}")
@@ -42,7 +47,7 @@ if(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspeci
       endif()
 endif()
 
-if(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
+if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
   list(APPEND CMAKE_ABSOLUTE_DESTINATION_FILES
    "/home/rachel/rawhide/rawhide_ws/install/_setup_util.py")
   if(CMAKE_WARN_ON_ABSOLUTE_INSTALL_DESTINATION)
@@ -54,7 +59,7 @@ if(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspeci
 file(INSTALL DESTINATION "/home/rachel/rawhide/rawhide_ws/install" TYPE PROGRAM FILES "/home/rachel/rawhide/rawhide_ws/build/catkin_generated/installspace/_setup_util.py")
 endif()
 
-if(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
+if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
   list(APPEND CMAKE_ABSOLUTE_DESTINATION_FILES
    "/home/rachel/rawhide/rawhide_ws/install/env.sh")
   if(CMAKE_WARN_ON_ABSOLUTE_INSTALL_DESTINATION)
@@ -66,43 +71,52 @@ if(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspeci
 file(INSTALL DESTINATION "/home/rachel/rawhide/rawhide_ws/install" TYPE PROGRAM FILES "/home/rachel/rawhide/rawhide_ws/build/catkin_generated/installspace/env.sh")
 endif()
 
-if(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
+if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
   list(APPEND CMAKE_ABSOLUTE_DESTINATION_FILES
-   "/home/rachel/rawhide/rawhide_ws/install/setup.bash")
+   "/home/rachel/rawhide/rawhide_ws/install/setup.bash;/home/rachel/rawhide/rawhide_ws/install/local_setup.bash")
   if(CMAKE_WARN_ON_ABSOLUTE_INSTALL_DESTINATION)
     message(WARNING "ABSOLUTE path INSTALL DESTINATION : ${CMAKE_ABSOLUTE_DESTINATION_FILES}")
   endif()
   if(CMAKE_ERROR_ON_ABSOLUTE_INSTALL_DESTINATION)
     message(FATAL_ERROR "ABSOLUTE path INSTALL DESTINATION forbidden (by caller): ${CMAKE_ABSOLUTE_DESTINATION_FILES}")
   endif()
-file(INSTALL DESTINATION "/home/rachel/rawhide/rawhide_ws/install" TYPE FILE FILES "/home/rachel/rawhide/rawhide_ws/build/catkin_generated/installspace/setup.bash")
+file(INSTALL DESTINATION "/home/rachel/rawhide/rawhide_ws/install" TYPE FILE FILES
+    "/home/rachel/rawhide/rawhide_ws/build/catkin_generated/installspace/setup.bash"
+    "/home/rachel/rawhide/rawhide_ws/build/catkin_generated/installspace/local_setup.bash"
+    )
 endif()
 
-if(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
+if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
   list(APPEND CMAKE_ABSOLUTE_DESTINATION_FILES
-   "/home/rachel/rawhide/rawhide_ws/install/setup.sh")
+   "/home/rachel/rawhide/rawhide_ws/install/setup.sh;/home/rachel/rawhide/rawhide_ws/install/local_setup.sh")
   if(CMAKE_WARN_ON_ABSOLUTE_INSTALL_DESTINATION)
     message(WARNING "ABSOLUTE path INSTALL DESTINATION : ${CMAKE_ABSOLUTE_DESTINATION_FILES}")
   endif()
   if(CMAKE_ERROR_ON_ABSOLUTE_INSTALL_DESTINATION)
     message(FATAL_ERROR "ABSOLUTE path INSTALL DESTINATION forbidden (by caller): ${CMAKE_ABSOLUTE_DESTINATION_FILES}")
   endif()
-file(INSTALL DESTINATION "/home/rachel/rawhide/rawhide_ws/install" TYPE FILE FILES "/home/rachel/rawhide/rawhide_ws/build/catkin_generated/installspace/setup.sh")
+file(INSTALL DESTINATION "/home/rachel/rawhide/rawhide_ws/install" TYPE FILE FILES
+    "/home/rachel/rawhide/rawhide_ws/build/catkin_generated/installspace/setup.sh"
+    "/home/rachel/rawhide/rawhide_ws/build/catkin_generated/installspace/local_setup.sh"
+    )
 endif()
 
-if(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
+if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
   list(APPEND CMAKE_ABSOLUTE_DESTINATION_FILES
-   "/home/rachel/rawhide/rawhide_ws/install/setup.zsh")
+   "/home/rachel/rawhide/rawhide_ws/install/setup.zsh;/home/rachel/rawhide/rawhide_ws/install/local_setup.zsh")
   if(CMAKE_WARN_ON_ABSOLUTE_INSTALL_DESTINATION)
     message(WARNING "ABSOLUTE path INSTALL DESTINATION : ${CMAKE_ABSOLUTE_DESTINATION_FILES}")
   endif()
   if(CMAKE_ERROR_ON_ABSOLUTE_INSTALL_DESTINATION)
     message(FATAL_ERROR "ABSOLUTE path INSTALL DESTINATION forbidden (by caller): ${CMAKE_ABSOLUTE_DESTINATION_FILES}")
   endif()
-file(INSTALL DESTINATION "/home/rachel/rawhide/rawhide_ws/install" TYPE FILE FILES "/home/rachel/rawhide/rawhide_ws/build/catkin_generated/installspace/setup.zsh")
+file(INSTALL DESTINATION "/home/rachel/rawhide/rawhide_ws/install" TYPE FILE FILES
+    "/home/rachel/rawhide/rawhide_ws/build/catkin_generated/installspace/setup.zsh"
+    "/home/rachel/rawhide/rawhide_ws/build/catkin_generated/installspace/local_setup.zsh"
+    )
 endif()
 
-if(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
+if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
   list(APPEND CMAKE_ABSOLUTE_DESTINATION_FILES
    "/home/rachel/rawhide/rawhide_ws/install/.rosinstall")
   if(CMAKE_WARN_ON_ABSOLUTE_INSTALL_DESTINATION)
@@ -120,11 +134,40 @@ if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   include("/home/rachel/rawhide/rawhide_ws/build/intera_common/intera_common/cmake_install.cmake")
   include("/home/rachel/rawhide/rawhide_ws/build/intera_sdk/intera_sdk/cmake_install.cmake")
   include("/home/rachel/rawhide/rawhide_ws/build/intera_common/intera_tools_description/cmake_install.cmake")
+  include("/home/rachel/rawhide/rawhide_ws/build/robotiq/robotiq/cmake_install.cmake")
+  include("/home/rachel/rawhide/rawhide_ws/build/robotiq/robotiq_2f_140_gripper_visualization/cmake_install.cmake")
+  include("/home/rachel/rawhide/rawhide_ws/build/robotiq/robotiq_2f_c2_gripper_visualization/cmake_install.cmake")
+  include("/home/rachel/rawhide/rawhide_ws/build/robotiq/robotiq_3f_gripper_articulated_gazebo/cmake_install.cmake")
+  include("/home/rachel/rawhide/rawhide_ws/build/rosserial/rosserial/cmake_install.cmake")
+  include("/home/rachel/rawhide/rawhide_ws/build/rosserial/rosserial_arduino/cmake_install.cmake")
+  include("/home/rachel/rawhide/rawhide_ws/build/rosserial/rosserial_mbed/cmake_install.cmake")
+  include("/home/rachel/rawhide/rawhide_ws/build/rosserial/rosserial_msgs/cmake_install.cmake")
+  include("/home/rachel/rawhide/rawhide_ws/build/rosserial/rosserial_python/cmake_install.cmake")
+  include("/home/rachel/rawhide/rawhide_ws/build/rosserial/rosserial_tivac/cmake_install.cmake")
+  include("/home/rachel/rawhide/rawhide_ws/build/rosserial/rosserial_vex_cortex/cmake_install.cmake")
+  include("/home/rachel/rawhide/rawhide_ws/build/rosserial/rosserial_vex_v5/cmake_install.cmake")
+  include("/home/rachel/rawhide/rawhide_ws/build/rosserial/rosserial_xbee/cmake_install.cmake")
+  include("/home/rachel/rawhide/rawhide_ws/build/rosserial/rosserial_client/cmake_install.cmake")
   include("/home/rachel/rawhide/rawhide_ws/build/sawyer_robot/sawyer_description/cmake_install.cmake")
   include("/home/rachel/rawhide/rawhide_ws/build/sawyer_robot/sawyer_robot/cmake_install.cmake")
+  include("/home/rachel/rawhide/rawhide_ws/build/robotiq/robotiq_3f_gripper_articulated_msgs/cmake_install.cmake")
+  include("/home/rachel/rawhide/rawhide_ws/build/robotiq/robotiq_ethercat/cmake_install.cmake")
+  include("/home/rachel/rawhide/rawhide_ws/build/robotiq/robotiq_2f_gripper_control/cmake_install.cmake")
+  include("/home/rachel/rawhide/rawhide_ws/build/robotiq/robotiq_ft_sensor/cmake_install.cmake")
+  include("/home/rachel/rawhide/rawhide_ws/build/robotiq/robotiq_modbus_rtu/cmake_install.cmake")
+  include("/home/rachel/rawhide/rawhide_ws/build/robotiq/robotiq_modbus_tcp/cmake_install.cmake")
+  include("/home/rachel/rawhide/rawhide_ws/build/robotiq/robotiq_2f_gripper_action_server/cmake_install.cmake")
+  include("/home/rachel/rawhide/rawhide_ws/build/robotiq/robotiq_3f_gripper_control/cmake_install.cmake")
+  include("/home/rachel/rawhide/rawhide_ws/build/rosserial/rosserial_server/cmake_install.cmake")
   include("/home/rachel/rawhide/rawhide_ws/build/intera_common/intera_core_msgs/cmake_install.cmake")
   include("/home/rachel/rawhide/rawhide_ws/build/intera_common/intera_motion_msgs/cmake_install.cmake")
   include("/home/rachel/rawhide/rawhide_ws/build/intera_sdk/intera_interface/cmake_install.cmake")
+  include("/home/rachel/rawhide/rawhide_ws/build/robotiq/robotiq_3f_gripper_joint_state_publisher/cmake_install.cmake")
+  include("/home/rachel/rawhide/rawhide_ws/build/rosserial/rosserial_embeddedlinux/cmake_install.cmake")
+  include("/home/rachel/rawhide/rawhide_ws/build/rosserial/rosserial_test/cmake_install.cmake")
+  include("/home/rachel/rawhide/rawhide_ws/build/rosserial/rosserial_windows/cmake_install.cmake")
+  include("/home/rachel/rawhide/rawhide_ws/build/robotiq/robotiq_3f_gripper_articulated_gazebo_plugins/cmake_install.cmake")
+  include("/home/rachel/rawhide/rawhide_ws/build/robotiq/robotiq_3f_gripper_visualization/cmake_install.cmake")
   include("/home/rachel/rawhide/rawhide_ws/build/intera_sdk/intera_examples/cmake_install.cmake")
   include("/home/rachel/rawhide/rawhide_ws/build/sawyer_pykdl/cmake_install.cmake")
   include("/home/rachel/rawhide/rawhide_ws/build/sawyer_rr_bridge/cmake_install.cmake")

@@ -97,7 +97,7 @@ namespace message_traits
 
 
 // BOOLTRAITS {'IsFixedSize': True, 'IsMessage': True, 'HasHeader': False}
-// {'intera_core_msgs': ['/home/rachel/rawhide/rawhide_ws/src/intera_common/intera_core_msgs/msg', '/home/rachel/rawhide/rawhide_ws/devel/share/intera_core_msgs/msg'], 'geometry_msgs': ['/opt/ros/kinetic/share/geometry_msgs/cmake/../msg'], 'actionlib_msgs': ['/opt/ros/kinetic/share/actionlib_msgs/cmake/../msg'], 'std_msgs': ['/opt/ros/kinetic/share/std_msgs/cmake/../msg'], 'sensor_msgs': ['/opt/ros/kinetic/share/sensor_msgs/cmake/../msg']}
+// {'intera_core_msgs': ['/home/rachel/rawhide/rawhide_ws/src/intera_common/intera_core_msgs/msg', '/home/rachel/rawhide/rawhide_ws/devel/share/intera_core_msgs/msg'], 'geometry_msgs': ['/opt/ros/melodic/share/geometry_msgs/cmake/../msg'], 'actionlib_msgs': ['/opt/ros/melodic/share/actionlib_msgs/cmake/../msg'], 'std_msgs': ['/opt/ros/melodic/share/std_msgs/cmake/../msg'], 'sensor_msgs': ['/opt/ros/melodic/share/sensor_msgs/cmake/../msg']}
 
 // !!!!!!!!!!! ['__class__', '__delattr__', '__dict__', '__doc__', '__eq__', '__format__', '__getattribute__', '__hash__', '__init__', '__module__', '__ne__', '__new__', '__reduce__', '__reduce_ex__', '__repr__', '__setattr__', '__sizeof__', '__str__', '__subclasshook__', '__weakref__', '_parsed_fields', 'constants', 'fields', 'full_name', 'has_header', 'header_present', 'names', 'package', 'parsed_fields', 'short_name', 'text', 'types']
 
@@ -164,22 +164,22 @@ struct Definition< ::intera_core_msgs::HeadState_<ContainerAllocator> >
 {
   static const char* value()
   {
-    return "float32 pan\n\
-bool isTurning\n\
-\n\
-# isBlocked will be true during active cancellation when the desired head position\n\
-# can not be reached because of j0's current position\n\
-bool isBlocked\n\
-\n\
-# panMode will be one of\n\
-uint8 PASSIVE_MODE             = 0\n\
-uint8 ACTIVE_MODE              = 1\n\
-uint8 ACTIVE_CANCELLATION_MODE = 2\n\
-#\n\
-uint8 panMode\n\
-\n\
-\n\
-";
+    return "float32 pan\n"
+"bool isTurning\n"
+"\n"
+"# isBlocked will be true during active cancellation when the desired head position\n"
+"# can not be reached because of j0's current position\n"
+"bool isBlocked\n"
+"\n"
+"# panMode will be one of\n"
+"uint8 PASSIVE_MODE             = 0\n"
+"uint8 ACTIVE_MODE              = 1\n"
+"uint8 ACTIVE_CANCELLATION_MODE = 2\n"
+"#\n"
+"uint8 panMode\n"
+"\n"
+"\n"
+;
   }
 
   static const char* value(const ::intera_core_msgs::HeadState_<ContainerAllocator>&) { return value(); }

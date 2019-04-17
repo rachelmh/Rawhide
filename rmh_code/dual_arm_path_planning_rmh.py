@@ -28,8 +28,8 @@ class pybullet_env:
         pybullet.setTimeStep(0.0001)
         self.cabinet=pybullet.loadURDF('/home/rachel/rawhide/rmh_code/cylinder_wire.urdf',basePosition=[.7,0,0],useFixedBase=1)
         if numsawyers==2:
-            self.sawyer1=pybullet.loadURDF('/home/rachel/rawhide/rmh_code/pybullet_robots-master/data/sawyer_robot/sawyer_description/urdf/sawyer_rmh.urdf',basePosition=[0,-.35,0],useFixedBase=1)
-            self.sawyer2=pybullet.loadURDF('/home/rachel/rawhide/rmh_code/pybullet_robots-master/data/sawyer_robot/sawyer_description/urdf/sawyer_rmh.urdf',basePosition=[0,.35,0],useFixedBase=1)
+            self.sawyer1=pybullet.loadURDF('/home/rachel/rawhide/rmh_code/pybullet_robots/data/sawyer_robot/sawyer_description/urdf/sawyer_rmh.urdf',basePosition=[0,-.35,0],useFixedBase=1)
+            self.sawyer2=pybullet.loadURDF('/home/rachel/rawhide/rmh_code/pybullet_robots/data/sawyer_robot/sawyer_description/urdf/sawyer_rmh.urdf',basePosition=[0,.35,0],useFixedBase=1)
             self.sawyer_joint_indexes=[3,8,9,10,11,13,16]
             p1pos=[0.1,0.1,0.1,0.1,0.1,0.1,0.1]
             self.zeropos=[0,0,0,0,0,0,0]
@@ -44,7 +44,7 @@ class pybullet_env:
 
 
         else:
-            self.sawyer1=pybullet.loadURDF('/home/rachel/rawhide/rmh_code/pybullet_robots-master/data/sawyer_robot/sawyer_description/urdf/sawyer_rmh.urdf',basePosition=[0,-.35,0],useFixedBase=1)
+            self.sawyer1=pybullet.loadURDF('/home/rachel/rawhide/rmh_code/pybullet_robots/data/sawyer_robot/sawyer_description/urdf/sawyer_rmh.urdf',basePosition=[0,-.35,0],useFixedBase=1)
             self.sawyer_joint_indexes=[3,8,9,10,11,13,16]
             p1pos=[0.1,0.1,0.1,0.1,0.1,0.1,0.1]
             self.zeropos=[0,0,0,0,0,0,0]
@@ -316,7 +316,7 @@ class RRTStarNd:
             jtoreturn=[]
             valid=1
             for i in range(len(q_start)):
-                a1=np.linspace(q_start[i],q_goal[i],50)
+                a1=np.linspace(q_start[i],q_goal[i],5)
                 q_tocheck.append(a1.tolist())
 
             q_tocheck_pos=zip(*q_tocheck)
@@ -813,15 +813,17 @@ def main():
     #Test Case 3
     jl7=[[-3,-3,-3,-3,-3,-3,-3.5],[3,3,3,3,3,3,3.5]]
     sp7=[-1.00, -1.18, 0.00, 2.18, 0.00, 0.57, 3.3161 ]
+    sp7=[-1.00, 0, 0.0,0, 0.00, 0, 0 ]
     ep7=[0.35,0.0,0.0,0.0,0.0,0.0,0.0]
+    ep7=[-1.00, 1, 0.00, 0, 0.00, 0, 0 ]
     wmat7=[700,700,150,100,50,10,1]
-    ed7=.5
+    ed7=.2
     nnsr7=30
     gsr7=20
     gt7=math.sqrt(.1*7)
     drawgraph7=0
-    ni7=1000
-    show_pb7=0
+    ni7=500
+    show_pb7=1
 
     TestCase=3  #1=2d, 2=14dof, 3=7dof
 

@@ -51,8 +51,6 @@ uint32 seq
 # time-handling sugar is provided by the client library
 time stamp
 #Frame this data is associated with
-# 0: no frame
-# 1: global frame
 string frame_id
 """
   __slots__ = ['header','interaction_control_active','K_impedance','D_impedance','endpoint_force_command','endpoint_name','in_endpoint_frame','disable_damping_in_force_control','disable_reference_resetting','rotations_for_constrained_zeroG']

@@ -112,7 +112,7 @@ def move_to_wire_ready_pos(robot1,robot2):
 	DA_Move_To_Position(robot1,robot2,[0, -2.5, 0, -1.9, 0, 0, 3.3],[0, -2.5, 0, -1.9, 0,0,3.3],.2)
 
 def set_disp_image(robot1,robot2,imagename):
-	#'/home/rachel/rawhide/rmh_code/TBD_images/startrecording.png'
+	#robot1.image_path +'rawhide/rmh_code/TBD_images/startrecording.png'
 	robot1.robot.setDisplayImage(imagename)
 	robot2.robot.setDisplayImage(imagename)
 
@@ -144,8 +144,8 @@ def get_playback_filename_list(filenamelisttxt):
 def playback_sequence(robot1,robot2,filename_list):
 	#lines.extend([1,2,3,4,5])
 	button='None'
-	robot1.robot.setDisplayImage('/home/rachel/rawhide/rmh_code/TBD_images/beginplayback.png')
-	robot2.robot.setDisplayImage('/home/rachel/rawhide/rmh_code/TBD_images/beginplayback.png')
+	robot1.robot.setDisplayImage(robot1.image_path +'rawhide/rmh_code/TBD_images/beginplayback.png')
+	robot2.robot.setDisplayImage(robot1.image_path +'rawhide/rmh_code/TBD_images/beginplayback.png')
 	print('press red button to  begin playback')
 	while not robot1.robot.PB1 and robot1.robot.PB3:
 		time.sleep(.1)
@@ -155,8 +155,8 @@ def playback_sequence(robot1,robot2,filename_list):
 
 	for name in filename_list:
 		playback(robot1,robot2,name)
-		robot1.robot.setDisplayImage('/home/rachel/rawhide/rmh_code/TBD_images/makeadjustments.png')
-		robot2.robot.setDisplayImage('/home/rachel/rawhide/rmh_code/TBD_images/makeadjustments.png')
+		robot1.robot.setDisplayImage(robot1.image_path +'rawhide/rmh_code/TBD_images/makeadjustments.png')
+		robot2.robot.setDisplayImage(robot1.image_path +'rawhide/rmh_code/TBD_images/makeadjustments.png')
 		#button=xorscroll(robot1)
 		button=redorblue(robot1,robot2)
 		if button == 'red':
@@ -182,8 +182,8 @@ def playback(robot1,robot2,filename):
 	endpos=numpy.array(lines[-1].rstrip().split(','))
 	endjointgoal=endpos.astype(numpy.float)
 	print('moving to starting pos')
-	robot1.robot.setDisplayImage('/home/rachel/rawhide/rmh_code/TBD_images/playbackmoving.png')
-	robot2.robot.setDisplayImage('/home/rachel/rawhide/rmh_code/TBD_images/playbackmoving.png')
+	robot1.robot.setDisplayImage(robot1.image_path +'rawhide/rmh_code/TBD_images/playbackmoving.png')
+	robot2.robot.setDisplayImage(robot1.image_path +'rawhide/rmh_code/TBD_images/playbackmoving.png')
 
 	DA_Move_To_Position(robot1,robot2,startjointgoal[1:8],startjointgoal[8:15],.2)
 
@@ -273,15 +273,15 @@ def editplaybackfile(robot1,robot2,filename):
 	with open(filename, 'a') as f:
 		recrate=.003
 		time.sleep(1)
-		robot1.robot.setDisplayImage('/home/rachel/rawhide/rmh_code/TBD_images/3.png')
+		robot1.robot.setDisplayImage(robot1.image_path +'rawhide/rmh_code/TBD_images/3.png')
 		time.sleep(1)
-		robot1.robot.setDisplayImage('/home/rachel/rawhide/rmh_code/TBD_images/2.png')
+		robot1.robot.setDisplayImage(robot1.image_path +'rawhide/rmh_code/TBD_images/2.png')
 		time.sleep(1)
-		robot1.robot.setDisplayImage('/home/rachel/rawhide/rmh_code/TBD_images/1.png')
+		robot1.robot.setDisplayImage(robot1.image_path +'rawhide/rmh_code/TBD_images/1.png')
 		time.sleep(1)
 
 		print('recording now!')
-		robot1.robot.setDisplayImage('/home/rachel/rawhide/rmh_code/TBD_images/stoprecord.png')
+		robot1.robot.setDisplayImage(robot1.image_path +'rawhide/rmh_code/TBD_images/stoprecord.png')
 
 		robot1.SetControlMode(0)
 		robot2.SetControlMode(0)
@@ -361,8 +361,8 @@ def editplaybackfile(robot1,robot2,filename):
 def move_from_wire_ret_to_neut(robot1,robot2):
 	# move_to_wire_ready_pos(robot1,robot2)
 	# #xorscroll(robot1)
-	# robot1.robot.setDisplayImage('/home/rachel/rawhide/rmh_code/TBD_images/grabwire.png')
-	# robot2.robot.setDisplayImage('/home/rachel/rawhide/rmh_code/TBD_images/grabwire.png')
+	# robot1.robot.setDisplayImage(robot1.image_path +'rawhide/rmh_code/TBD_images/grabwire.png')
+	# robot2.robot.setDisplayImage(robot1.image_path +'rawhide/rmh_code/TBD_images/grabwire.png')
 	#redorblue(robot1,robot2)
 	DA_Move_To_Position(robot1,robot2,[0, -2, 0, 0, 0, 2.5, 3.3],[0, -2, 0, 0, 0,2.5,3.3],.2)
 	DA_Move_To_Position(robot1,robot2,[0, -1.18, 0, 2.6, 0, 0, 3.3],[0, -1.18, 0, 2.6, 0,0,3.3],.2)
@@ -378,15 +378,15 @@ def record_sequence(robot1,robot2,wireid):
 	noinput=1
 	button=0
 	while repeatflag==1 :
-		robot1.robot.setDisplayImage('/home/rachel/rawhide/rmh_code/TBD_images/startrecording.png')
-		robot2.robot.setDisplayImage('/home/rachel/rawhide/rmh_code/TBD_images/startrecording.png')
+		robot1.robot.setDisplayImage(robot1.image_path +'rawhide/rmh_code/TBD_images/startrecording.png')
+		robot2.robot.setDisplayImage(robot1.image_path +'rawhide/rmh_code/TBD_images/startrecording.png')
 		print('to start recording sequence, press any Button')
 		redorblue(robot1,robot2)
 		# while robot1.robot.PB1==0 and robot1.robot.PB3==0:
 		# 	time.sleep(.01)
-		# robot1.robot.setDisplayImage('/home/rachel/rawhide/rmh_code/TBD_images/stoprecord.png')
-		# robot2.robot.setDisplayImage('/home/rachel/rawhide/rmh_code/TBD_images/stoprecord.png')
-		fileName = ("/home/rachel/rawhide/rmh_code/TBD_logs/logdemo%d_%d.txt" % (wireid,fileiter))
+		# robot1.robot.setDisplayImage(robot1.image_path +'rawhide/rmh_code/TBD_images/stoprecord.png')
+		# robot2.robot.setDisplayImage(robot1.image_path +'rawhide/rmh_code/TBD_images/stoprecord.png')
+		fileName = (robot1.image_path+'rawhide/rmh_code/TBD_logs/logdemo%d_%d.txt" % (wireid,fileiter))
 
 		record(robot1,robot2,fileName)
 
@@ -396,28 +396,28 @@ def record_sequence(robot1,robot2,wireid):
 		filename_list.append(fileName)
 		fileiter=fileiter+1
 
-		robot1.robot.setDisplayImage('/home/rachel/rawhide/rmh_code/TBD_images/recordanother.png')
-		robot2.robot.setDisplayImage('/home/rachel/rawhide/rmh_code/TBD_images/recordanother.png')
+		robot1.robot.setDisplayImage(robot1.image_path +'rawhide/rmh_code/TBD_images/recordanother.png')
+		robot2.robot.setDisplayImage(robot1.image_path +'rawhide/rmh_code/TBD_images/recordanother.png')
 		print( 'record more? red yes, blue no')
 		time.sleep(.5)
 		button=redorblue(robot1,robot2)
 		time.sleep(.5)
 		if button=='red':
-			robot1.robot.setDisplayImage('/home/rachel/rawhide/rmh_code/TBD_images/regrasp_or_record.png')
-			robot2.robot.setDisplayImage('/home/rachel/rawhide/rmh_code/TBD_images/regrasp_or_record.png')
+			robot1.robot.setDisplayImage(robot1.image_path +'rawhide/rmh_code/TBD_images/regrasp_or_record.png')
+			robot2.robot.setDisplayImage(robot1.image_path +'rawhide/rmh_code/TBD_images/regrasp_or_record.png')
 			print('regrasp wire or record another pose? red regrasp, blue record another')
 			time.sleep(.5)
 			button=redorblue(robot1,robot2)
 			time.sleep(.5)
 			if button=='red':
 				print('regrasp')
-				fileName = ("/home/rachel/rawhide/rmh_code/TBD_logs/loggrasp%d_%d.txt" % (wireid,graspiter))
+				fileName = (robot1.image_path+'rawhide/rmh_code/TBD_logs/loggrasp%d_%d.txt" % (wireid,graspiter))
 				filename_list.append(fileName)
 				#grasp_wire()
 				regrasp_record(robot1,robot2,fileName)
 				graspiter=graspiter+1
-				robot1.robot.setDisplayImage('/home/rachel/rawhide/rmh_code/TBD_images/donegrasping.png')
-				robot2.robot.setDisplayImage('/home/rachel/rawhide/rmh_code/TBD_images/donegrasping.png')
+				robot1.robot.setDisplayImage(robot1.image_path +'rawhide/rmh_code/TBD_images/donegrasping.png')
+				robot2.robot.setDisplayImage(robot1.image_path +'rawhide/rmh_code/TBD_images/donegrasping.png')
 				print('done grasping,record another? red yes, blue no')
 				button=redorblue(robot1,robot2)
 				if button =='red':
@@ -429,17 +429,17 @@ def record_sequence(robot1,robot2,wireid):
 
 		elif button=='blue':
 			repeatflag=0
-			robot1.robot.setDisplayImage('/home/rachel/rawhide/rmh_code/TBD_images/donerecordingsequence.png')
-			robot2.robot.setDisplayImage('/home/rachel/rawhide/rmh_code/TBD_images/donerecordingsequence.png')
+			robot1.robot.setDisplayImage(robot1.image_path +'rawhide/rmh_code/TBD_images/donerecordingsequence.png')
+			robot2.robot.setDisplayImage(robot1.image_path +'rawhide/rmh_code/TBD_images/donerecordingsequence.png')
 			print('DoneRecordingSequence')
 			time.sleep(.5)
 
 
-		robot1.robot.setDisplayImage('/home/rachel/rawhide/rmh_code/TBD_images/recordanother.png')
-		robot2.robot.setDisplayImage('/home/rachel/rawhide/rmh_code/TBD_images/recordanother.png')
+		robot1.robot.setDisplayImage(robot1.image_path +'rawhide/rmh_code/TBD_images/recordanother.png')
+		robot2.robot.setDisplayImage(robot1.image_path +'rawhide/rmh_code/TBD_images/recordanother.png')
 
 
-	fileName = ("/home/rachel/rawhide/rmh_code/TBD_logs/filenamelist_%d.txt" % (wireid))
+	fileName = (robot1.image_path +'rawhide/rmh_code/TBD_logs/filenamelist_%d.txt" % (wireid))
 
 
 	with open(fileName, 'w') as f:
@@ -461,19 +461,19 @@ def record(robot1,robot2,filename):
 
 	recrate=.1#.003
 	time.sleep(1)
-	robot1.robot.setDisplayImage('/home/rachel/rawhide/rmh_code/TBD_images/3.png')
-	robot2.robot.setDisplayImage('/home/rachel/rawhide/rmh_code/TBD_images/3.png')
+	robot1.robot.setDisplayImage(robot1.image_path +'rawhide/rmh_code/TBD_images/3.png')
+	robot2.robot.setDisplayImage(robot1.image_path +'rawhide/rmh_code/TBD_images/3.png')
 	time.sleep(1)
-	robot1.robot.setDisplayImage('/home/rachel/rawhide/rmh_code/TBD_images/2.png')
-	robot2.robot.setDisplayImage('/home/rachel/rawhide/rmh_code/TBD_images/2.png')
+	robot1.robot.setDisplayImage(robot1.image_path +'rawhide/rmh_code/TBD_images/2.png')
+	robot2.robot.setDisplayImage(robot1.image_path +'rawhide/rmh_code/TBD_images/2.png')
 	time.sleep(1)
-	robot1.robot.setDisplayImage('/home/rachel/rawhide/rmh_code/TBD_images/1.png')
-	robot2.robot.setDisplayImage('/home/rachel/rawhide/rmh_code/TBD_images/1.png')
+	robot1.robot.setDisplayImage(robot1.image_path +'rawhide/rmh_code/TBD_images/1.png')
+	robot2.robot.setDisplayImage(robot1.image_path +'rawhide/rmh_code/TBD_images/1.png')
 	time.sleep(1)
 
 	print('recording now!')
-	robot1.robot.setDisplayImage('/home/rachel/rawhide/rmh_code/TBD_images/stoprecord.png')
-	robot2.robot.setDisplayImage('/home/rachel/rawhide/rmh_code/TBD_images/stoprecord.png')
+	robot1.robot.setDisplayImage(robot1.image_path +'rawhide/rmh_code/TBD_images/stoprecord.png')
+	robot2.robot.setDisplayImage(robot1.image_path +'rawhide/rmh_code/TBD_images/stoprecord.png')
 
 
 	grippos=[robot1.robot.gripperPos,robot2.robot.gripperPos]
@@ -502,8 +502,8 @@ def record(robot1,robot2,filename):
 
 			while not robot1.doneflag:
 				checkcuffbutton(robot1,robot2)
-				# robot1.robot.setDisplayImage('/home/rachel/rawhide/rmh_code/TBD_images/stoprecord.png')
-				# robot2.robot.setDisplayImage('/home/rachel/rawhide/rmh_code/TBD_images/stoprecord.png')
+				# robot1.robot.setDisplayImage(robot1.image_path +'rawhide/rmh_code/TBD_images/stoprecord.png')
+				# robot2.robot.setDisplayImage(robot1.image_path +'rawhide/rmh_code/TBD_images/stoprecord.png')
 				print('vels',robot1.get_current_joint_velocity())
 				#robot1.Set_Torques([0,0,0,0,0,0,0])
 				#robot2.Set_Torques([0,0,0,0,0,0,0])
@@ -561,19 +561,19 @@ def regrasp_record(robot1,robot2,filename):
 
 	recrate=.1#.003
 	time.sleep(1)
-	robot1.robot.setDisplayImage('/home/rachel/rawhide/rmh_code/TBD_images/3.png')
-	robot2.robot.setDisplayImage('/home/rachel/rawhide/rmh_code/TBD_images/3.png')
+	robot1.robot.setDisplayImage(robot1.image_path +'rawhide/rmh_code/TBD_images/3.png')
+	robot2.robot.setDisplayImage(robot1.image_path +'rawhide/rmh_code/TBD_images/3.png')
 	time.sleep(1)
-	robot1.robot.setDisplayImage('/home/rachel/rawhide/rmh_code/TBD_images/2.png')
-	robot2.robot.setDisplayImage('/home/rachel/rawhide/rmh_code/TBD_images/2.png')
+	robot1.robot.setDisplayImage(robot1.image_path +'rawhide/rmh_code/TBD_images/2.png')
+	robot2.robot.setDisplayImage(robot1.image_path +'rawhide/rmh_code/TBD_images/2.png')
 	time.sleep(1)
-	robot1.robot.setDisplayImage('/home/rachel/rawhide/rmh_code/TBD_images/1.png')
-	robot2.robot.setDisplayImage('/home/rachel/rawhide/rmh_code/TBD_images/1.png')
+	robot1.robot.setDisplayImage(robot1.image_path +'rawhide/rmh_code/TBD_images/1.png')
+	robot2.robot.setDisplayImage(robot1.image_path +'rawhide/rmh_code/TBD_images/1.png')
 	time.sleep(1)
 
 	print('recording now!')
-	robot1.robot.setDisplayImage('/home/rachel/rawhide/rmh_code/TBD_images/grabwire.png')
-	robot2.robot.setDisplayImage('/home/rachel/rawhide/rmh_code/TBD_images/grabwire.png')
+	robot1.robot.setDisplayImage(robot1.image_path +'rawhide/rmh_code/TBD_images/grabwire.png')
+	robot2.robot.setDisplayImage(robot1.image_path +'rawhide/rmh_code/TBD_images/grabwire.png')
 	robot1.SetControlMode(0)
 	robot2.SetControlMode(0)
 
@@ -604,8 +604,8 @@ def regrasp_record(robot1,robot2,filename):
 
 			while not robot1.doneflag:
 				checkcuffbutton(robot1,robot2)
-				# robot1.robot.setDisplayImage('/home/rachel/rawhide/rmh_code/TBD_images/stoprecord.png')
-				# robot2.robot.setDisplayImage('/home/rachel/rawhide/rmh_code/TBD_images/stoprecord.png')
+				# robot1.robot.setDisplayImage(robot1.image_path +'rawhide/rmh_code/TBD_images/stoprecord.png')
+				# robot2.robot.setDisplayImage(robot1.image_path +'rawhide/rmh_code/TBD_images/stoprecord.png')
 				print('vels',robot1.get_current_joint_velocity())
 				#robot1.Set_Torques([0,0,0,0,0,0,0])
 				#robot2.Set_Torques([0,0,0,0,0,0,0])
@@ -669,38 +669,40 @@ def main():
 	captain.robot.setGRIPpos(0)
 	#DA_Move_To_Position(poirot,captain,[0, -1.18, 0, 2.6, 0, 0, 3.3],[0, -1.18, 0, 2.6, 0,0,3.3],.2)
 	wire_ready_pos= [3, -1.18, 0, 2.6, 0, 0, 3.3]
-	poirot.robot.setDisplayImage('/home/rachel/rawhide/rmh_code/TBD_images/startingup.png')
-	captain.robot.setDisplayImage('/home/rachel/rawhide/rmh_code/TBD_images/startingup.png')
+	poirot.image_path='home/rachel/'
+	captain.image_path='home/rachel/'
+	poirot.robot.setDisplayImage(poirot.image_path +'rawhide/rmh_code/TBD_images/startingup.png')
+	captain.robot.setDisplayImage(poirot.image_path +'rawhide/rmh_code/TBD_images/startingup.png')
 	DA_Move_To_Position(poirot,captain,[0, -1.18, 0, 2.6, 0, 0, 3.3],[0, -1.18, 0, 2.6, 0,0,3.3],.2)
 	quitflag=0
 
 	while quitflag==0:
-		poirot.robot.setDisplayImage('/home/rachel/rawhide/rmh_code/TBD_images/wirestation.png')
-		captain.robot.setDisplayImage('/home/rachel/rawhide/rmh_code/TBD_images/wirestation.png')
+		poirot.robot.setDisplayImage(poirot.image_path +'rawhide/rmh_code/TBD_images/wirestation.png')
+		captain.robot.setDisplayImage(poirot.image_path +'rawhide/rmh_code/TBD_images/wirestation.png')
 		move_to_wire_ready_pos(poirot,captain)
 		#move_from_wire_ret_to_neut(poirot,captain)
 		print('scan wire')
-		poirot.robot.setDisplayImage('/home/rachel/rawhide/rmh_code/TBD_images/wire_id.png')
-		captain.robot.setDisplayImage('/home/rachel/rawhide/rmh_code/TBD_images/wire_id.png')
+		poirot.robot.setDisplayImage(poirot.image_path +'rawhide/rmh_code/TBD_images/wire_id.png')
+		captain.robot.setDisplayImage(poirot.image_path +'rawhide/rmh_code/TBD_images/wire_id.png')
 		wireid=scan_wire()
 		print('wire id is: ',wireid)
-		fileNameList = ("/home/rachel/rawhide/rmh_code/TBD_logs/filenamelist_%d.txt" % (wireid))
+		fileNameList = (poirot.image_path +'rawhide/rmh_code/TBD_logs/filenamelist_%d.txt' % (wireid))
 		file_exist=filecheck(fileNameList)
-		poirot.robot.setDisplayImage('/home/rachel/rawhide/rmh_code/TBD_images/grabwire.png')
-		captain.robot.setDisplayImage('/home/rachel/rawhide/rmh_code/TBD_images/grabwire.png')
+		poirot.robot.setDisplayImage(poirot.image_path +'rawhide/rmh_code/TBD_images/grabwire.png')
+		captain.robot.setDisplayImage(poirot.image_path +'rawhide/rmh_code/TBD_images/grabwire.png')
 		print('grab wire with sawyer buttons, press red or blue to continue')
 		redorblue(poirot,captain)
 		if file_exist==1:
 			print('file exists')
-			poirot.robot.setDisplayImage('/home/rachel/rawhide/rmh_code/TBD_images/fileexists.png')
-			captain.robot.setDisplayImage('/home/rachel/rawhide/rmh_code/TBD_images/fileexists.png')
+			poirot.robot.setDisplayImage(poirot.image_path +'rawhide/rmh_code/TBD_images/fileexists.png')
+			captain.robot.setDisplayImage(poirot.image_path +'rawhide/rmh_code/TBD_images/fileexists.png')
 			time.sleep(1)
 			filename_list= get_playback_filename_list(fileNameList)
 			#print('playback? red yes, blue no')
 			playback_flag=0
 			while playback_flag==0:
-				poirot.robot.setDisplayImage('/home/rachel/rawhide/rmh_code/TBD_images/playback_ry_bn.png')
-				captain.robot.setDisplayImage('/home/rachel/rawhide/rmh_code/TBD_images/playback_ry_bn.png')
+				poirot.robot.setDisplayImage(poirot.image_path +'rawhide/rmh_code/TBD_images/playback_ry_bn.png')
+				captain.robot.setDisplayImage(poirot.image_path +'rawhide/rmh_code/TBD_images/playback_ry_bn.png')
 				print('playback? red yes, blue no')
 				time.sleep(.5)
 				button=redorblue(poirot,captain)
@@ -708,23 +710,23 @@ def main():
 					print('playback sequence func')
 					move_from_wire_ret_to_neut(poirot,captain)
 					playback_sequence(poirot,captain,filename_list)
-					poirot.robot.setDisplayImage('/home/rachel/rawhide/rmh_code/TBD_images/getnewwire.png')
-					captain.robot.setDisplayImage('/home/rachel/rawhide/rmh_code/TBD_images/getnewwire.png')
+					poirot.robot.setDisplayImage(poirot.image_path +'rawhide/rmh_code/TBD_images/getnewwire.png')
+					captain.robot.setDisplayImage(poirot.image_path +'rawhide/rmh_code/TBD_images/getnewwire.png')
 					print('get new wire?')
 					time.sleep(.5)
 					button=redorblue(poirot,captain)
 					if button=='red':  #get new wire
 						playback_flag=1
 					elif button =='blue': #do not get new wire
-						poirot.robot.setDisplayImage('/home/rachel/rawhide/rmh_code/TBD_images/quit.png')
-						captain.robot.setDisplayImage('/home/rachel/rawhide/rmh_code/TBD_images/quit.png')
+						poirot.robot.setDisplayImage(poirot.image_path +'rawhide/rmh_code/TBD_images/quit.png')
+						captain.robot.setDisplayImage(poirot.image_path +'rawhide/rmh_code/TBD_images/quit.png')
 						print('quit? red yes, blue no')
 						time.sleep(.5)
 						button=redorblue(poirot,captain)
 						if button=='red':  #quit
 							print('quitting')
-							poirot.robot.setDisplayImage('/home/rachel/rawhide/rmh_code/TBD_images/quitting.png')
-							captain.robot.setDisplayImage('/home/rachel/rawhide/rmh_code/TBD_images/quitting.png')
+							poirot.robot.setDisplayImage(poirot.image_path +'rawhide/rmh_code/TBD_images/quitting.png')
+							captain.robot.setDisplayImage(poirot.image_path +'rawhide/rmh_code/TBD_images/quitting.png')
 							playback_flag=1
 							quitflag=1
 
@@ -736,22 +738,22 @@ def main():
 
 					#playback_flag=1
 				elif button =='blue': #do not playback
-					poirot.robot.setDisplayImage('/home/rachel/rawhide/rmh_code/TBD_images/getnewwire.png')
-					captain.robot.setDisplayImage('/home/rachel/rawhide/rmh_code/TBD_images/getnewwire.png')
+					poirot.robot.setDisplayImage(poirot.image_path +'rawhide/rmh_code/TBD_images/getnewwire.png')
+					captain.robot.setDisplayImage(poirot.image_path +'rawhide/rmh_code/TBD_images/getnewwire.png')
 					print('get new wire?')
 					time.sleep(.5)
 					button=redorblue(poirot,captain)
 					if button=='red':  #get new wire
 						playback_flag=1
 					elif button =='blue': #do not get new wire
-						poirot.robot.setDisplayImage('/home/rachel/rawhide/rmh_code/TBD_images/quit.png')
-						captain.robot.setDisplayImage('/home/rachel/rawhide/rmh_code/TBD_images/quit.png')
+						poirot.robot.setDisplayImage(poirot.image_path +'rawhide/rmh_code/TBD_images/quit.png')
+						captain.robot.setDisplayImage(poirot.image_path +'rawhide/rmh_code/TBD_images/quit.png')
 						print('quit? red yes, blue no')
 						time.sleep(.5)
 						button=redorblue(poirot,captain)
 						if button=='red':  #quit
-							poirot.robot.setDisplayImage('/home/rachel/rawhide/rmh_code/TBD_images/quitting.png')
-							captain.robot.setDisplayImage('/home/rachel/rawhide/rmh_code/TBD_images/quitting.png')
+							poirot.robot.setDisplayImage(poirot.image_path +'rawhide/rmh_code/TBD_images/quitting.png')
+							captain.robot.setDisplayImage(poirot.image_path +'rawhide/rmh_code/TBD_images/quitting.png')
 							print('quitting')
 							playback_flag=1
 							quitflag=1
@@ -760,18 +762,18 @@ def main():
 							time.sleep(.5)
 							print(playback_flag,quitflag)
 		if file_exist==0:
-			poirot.robot.setDisplayImage('/home/rachel/rawhide/rmh_code/TBD_images/file_doesnotexist.png')
-			captain.robot.setDisplayImage('/home/rachel/rawhide/rmh_code/TBD_images/file_doesnotexist.png')
+			poirot.robot.setDisplayImage(poirot.image_path +'rawhide/rmh_code/TBD_images/file_doesnotexist.png')
+			captain.robot.setDisplayImage(poirot.image_path +'rawhide/rmh_code/TBD_images/file_doesnotexist.png')
 			print('file does not exist')
 			time.sleep(0.5)
-			poirot.robot.setDisplayImage('/home/rachel/rawhide/rmh_code/TBD_images/recordnewfile.png')
-			captain.robot.setDisplayImage('/home/rachel/rawhide/rmh_code/TBD_images/recordnewfile.png')
+			poirot.robot.setDisplayImage(poirot.image_path +'rawhide/rmh_code/TBD_images/recordnewfile.png')
+			captain.robot.setDisplayImage(poirot.image_path +'rawhide/rmh_code/TBD_images/recordnewfile.png')
 			print('record new file? red yes, blue no')
 			time.sleep(.5)
 			button=redorblue(poirot,captain)
 			if button=='red':  #record new file
-				poirot.robot.setDisplayImage('/home/rachel/rawhide/rmh_code/TBD_images/recordsequence.png')
-				captain.robot.setDisplayImage('/home/rachel/rawhide/rmh_code/TBD_images/recordsequence.png')
+				poirot.robot.setDisplayImage(poirot.image_path +'rawhide/rmh_code/TBD_images/recordsequence.png')
+				captain.robot.setDisplayImage(poirot.image_path +'rawhide/rmh_code/TBD_images/recordsequence.png')
 				print('record sequence')
 				time.sleep(.5)
 				move_from_wire_ret_to_neut(poirot,captain)
@@ -779,16 +781,16 @@ def main():
 				#DA_Move_To_Position(poirot,captain,[0, -1.18, 0, 2.6, 0, 0, 3.3],[0, -1.18, 0, 2.6, 0,0,3.3],.2)
 				record_sequence(poirot,captain,wireid)
 				#DA_Move_To_Position(poirot,captain,[0, -1.18, 0, 2.6, 0, 0, 3.3],[0, -1.18, 0, 2.6, 0,0,3.3],.2)
-				poirot.robot.setDisplayImage('/home/rachel/rawhide/rmh_code/TBD_images/getnewwire.png')
-				captain.robot.setDisplayImage('/home/rachel/rawhide/rmh_code/TBD_images/getnewwire.png')
+				poirot.robot.setDisplayImage(poirot.image_path +'rawhide/rmh_code/TBD_images/getnewwire.png')
+				captain.robot.setDisplayImage(poirot.image_path +'rawhide/rmh_code/TBD_images/getnewwire.png')
 				print('Get Next Wire? Red yes, Blue No')
 				time.sleep(.5)
 				button=redorblue(poirot,captain)
 				if button=='red':
 					pass
 				elif button =='blue':
-					poirot.robot.setDisplayImage('/home/rachel/rawhide/rmh_code/TBD_images/quitting.png')
-					captain.robot.setDisplayImage('/home/rachel/rawhide/rmh_code/TBD_images/quitting.png')
+					poirot.robot.setDisplayImage(poirot.image_path +'rawhide/rmh_code/TBD_images/quitting.png')
+					captain.robot.setDisplayImage(poirot.image_path +'rawhide/rmh_code/TBD_images/quitting.png')
 					button=redorblue(poirot,captain)
 					time.sleep(.5)
 					print('quitting')
@@ -820,8 +822,8 @@ def main():
 
 	DA_Move_To_Position(poirot,captain,[0, -1.18, 0, 2.6, 0, 0, 3.3],[0, -1.18, 0, 2.6, 0,0,3.3],.2)
 	print('QUIT FINAL')
-	poirot.robot.setDisplayImage('/home/rachel/rawhide/rmh_code/TBD_images/alldone.png')
-	captain.robot.setDisplayImage('/home/rachel/rawhide/rmh_code/TBD_images/alldone.png')
+	poirot.robot.setDisplayImage(poirot.image_path +'rawhide/rmh_code/TBD_images/alldone.png')
+	captain.robot.setDisplayImage(poirot.image_path +'rawhide/rmh_code/TBD_images/alldone.png')
 	#RRN.disconnect(poirot)
 	#RRN.disconnect(captain)
 

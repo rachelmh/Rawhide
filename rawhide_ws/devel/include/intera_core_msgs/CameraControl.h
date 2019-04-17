@@ -108,7 +108,7 @@ namespace message_traits
 
 
 // BOOLTRAITS {'IsFixedSize': True, 'IsMessage': True, 'HasHeader': False}
-// {'intera_core_msgs': ['/home/rachel/rawhide/rawhide_ws/src/intera_common/intera_core_msgs/msg', '/home/rachel/rawhide/rawhide_ws/devel/share/intera_core_msgs/msg'], 'geometry_msgs': ['/opt/ros/kinetic/share/geometry_msgs/cmake/../msg'], 'actionlib_msgs': ['/opt/ros/kinetic/share/actionlib_msgs/cmake/../msg'], 'std_msgs': ['/opt/ros/kinetic/share/std_msgs/cmake/../msg'], 'sensor_msgs': ['/opt/ros/kinetic/share/sensor_msgs/cmake/../msg']}
+// {'intera_core_msgs': ['/home/rachel/rawhide/rawhide_ws/src/intera_common/intera_core_msgs/msg', '/home/rachel/rawhide/rawhide_ws/devel/share/intera_core_msgs/msg'], 'geometry_msgs': ['/opt/ros/melodic/share/geometry_msgs/cmake/../msg'], 'actionlib_msgs': ['/opt/ros/melodic/share/actionlib_msgs/cmake/../msg'], 'std_msgs': ['/opt/ros/melodic/share/std_msgs/cmake/../msg'], 'sensor_msgs': ['/opt/ros/melodic/share/sensor_msgs/cmake/../msg']}
 
 // !!!!!!!!!!! ['__class__', '__delattr__', '__dict__', '__doc__', '__eq__', '__format__', '__getattribute__', '__hash__', '__init__', '__module__', '__ne__', '__new__', '__reduce__', '__reduce_ex__', '__repr__', '__setattr__', '__sizeof__', '__str__', '__subclasshook__', '__weakref__', '_parsed_fields', 'constants', 'fields', 'full_name', 'has_header', 'header_present', 'names', 'package', 'parsed_fields', 'short_name', 'text', 'types']
 
@@ -175,20 +175,20 @@ struct Definition< ::intera_core_msgs::CameraControl_<ContainerAllocator> >
 {
   static const char* value()
   {
-    return "int32   id\n\
-int32   value\n\
-\n\
-int32 CAMERA_CONTROL_EXPOSURE=100\n\
-int32 CAMERA_CONTROL_GAIN=101\n\
-int32 CAMERA_CONTROL_WHITE_BALANCE_R=102\n\
-int32 CAMERA_CONTROL_WHITE_BALANCE_G=103\n\
-int32 CAMERA_CONTROL_WHITE_BALANCE_B=104\n\
-int32 CAMERA_CONTROL_WINDOW_X=105\n\
-int32 CAMERA_CONTROL_WINDOW_Y=106\n\
-int32 CAMERA_CONTROL_FLIP=107\n\
-int32 CAMERA_CONTROL_MIRROR=108\n\
-int32 CAMERA_CONTROL_RESOLUTION_HALF=109\n\
-";
+    return "int32   id\n"
+"int32   value\n"
+"\n"
+"int32 CAMERA_CONTROL_EXPOSURE=100\n"
+"int32 CAMERA_CONTROL_GAIN=101\n"
+"int32 CAMERA_CONTROL_WHITE_BALANCE_R=102\n"
+"int32 CAMERA_CONTROL_WHITE_BALANCE_G=103\n"
+"int32 CAMERA_CONTROL_WHITE_BALANCE_B=104\n"
+"int32 CAMERA_CONTROL_WINDOW_X=105\n"
+"int32 CAMERA_CONTROL_WINDOW_Y=106\n"
+"int32 CAMERA_CONTROL_FLIP=107\n"
+"int32 CAMERA_CONTROL_MIRROR=108\n"
+"int32 CAMERA_CONTROL_RESOLUTION_HALF=109\n"
+;
   }
 
   static const char* value(const ::intera_core_msgs::CameraControl_<ContainerAllocator>&) { return value(); }

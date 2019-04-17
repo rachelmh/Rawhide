@@ -107,7 +107,7 @@ namespace message_traits
 
 
 // BOOLTRAITS {'IsFixedSize': False, 'IsMessage': True, 'HasHeader': True}
-// {'intera_core_msgs': ['/home/rachel/rawhide/rawhide_ws/src/intera_common/intera_core_msgs/msg', '/home/rachel/rawhide/rawhide_ws/devel/share/intera_core_msgs/msg'], 'sensor_msgs': ['/opt/ros/kinetic/share/sensor_msgs/cmake/../msg'], 'actionlib_msgs': ['/opt/ros/kinetic/share/actionlib_msgs/cmake/../msg'], 'intera_motion_msgs': ['/home/rachel/rawhide/rawhide_ws/src/intera_common/intera_motion_msgs/msg', '/home/rachel/rawhide/rawhide_ws/devel/share/intera_motion_msgs/msg'], 'std_msgs': ['/opt/ros/kinetic/share/std_msgs/cmake/../msg'], 'geometry_msgs': ['/opt/ros/kinetic/share/geometry_msgs/cmake/../msg']}
+// {'intera_core_msgs': ['/home/rachel/rawhide/rawhide_ws/src/intera_common/intera_core_msgs/msg', '/home/rachel/rawhide/rawhide_ws/devel/share/intera_core_msgs/msg'], 'sensor_msgs': ['/opt/ros/melodic/share/sensor_msgs/cmake/../msg'], 'actionlib_msgs': ['/opt/ros/melodic/share/actionlib_msgs/cmake/../msg'], 'intera_motion_msgs': ['/home/rachel/rawhide/rawhide_ws/src/intera_common/intera_motion_msgs/msg', '/home/rachel/rawhide/rawhide_ws/devel/share/intera_motion_msgs/msg'], 'std_msgs': ['/opt/ros/melodic/share/std_msgs/cmake/../msg'], 'geometry_msgs': ['/opt/ros/melodic/share/geometry_msgs/cmake/../msg']}
 
 // !!!!!!!!!!! ['__class__', '__delattr__', '__dict__', '__doc__', '__eq__', '__format__', '__getattribute__', '__hash__', '__init__', '__module__', '__ne__', '__new__', '__reduce__', '__reduce_ex__', '__repr__', '__setattr__', '__sizeof__', '__str__', '__subclasshook__', '__weakref__', '_parsed_fields', 'constants', 'fields', 'full_name', 'has_header', 'header_present', 'names', 'package', 'parsed_fields', 'short_name', 'text', 'types']
 
@@ -174,51 +174,49 @@ struct Definition< ::intera_motion_msgs::JointTrackingError_<ContainerAllocator>
 {
   static const char* value()
   {
-    return "# This message will be published from TrackingErrorPlugin.\n\
-# It contains the joint-space tracking error data for diagnostics.\n\
-Header header\n\
-\n\
-# ID for the trajectory.\n\
-uint32 trajectory_id\n\
-\n\
-# Reference time since start of trajectory in seconds.\n\
-float64 trajectory_time\n\
-\n\
-# name associated with each element for the vectors in this message\n\
-string[] joint_names\n\
-\n\
-# position_error = position_measured - position_command\n\
-# units:  radians\n\
-float64[] position_error\n\
-\n\
-# velocity_error = velocity_measured - velocity_command\n\
-# units:  radians per second\n\
-float64[] velocity_error\n\
-\n\
-# joint position that is commanded for each joint, in radians\n\
-float64[] position_command\n\
-\n\
-# joint velocity that is commanded for each joint, in radians per second\n\
-float64[] velocity_command\n\
-\n\
-================================================================================\n\
-MSG: std_msgs/Header\n\
-# Standard metadata for higher-level stamped data types.\n\
-# This is generally used to communicate timestamped data \n\
-# in a particular coordinate frame.\n\
-# \n\
-# sequence ID: consecutively increasing ID \n\
-uint32 seq\n\
-#Two-integer timestamp that is expressed as:\n\
-# * stamp.sec: seconds (stamp_secs) since epoch (in Python the variable is called 'secs')\n\
-# * stamp.nsec: nanoseconds since stamp_secs (in Python the variable is called 'nsecs')\n\
-# time-handling sugar is provided by the client library\n\
-time stamp\n\
-#Frame this data is associated with\n\
-# 0: no frame\n\
-# 1: global frame\n\
-string frame_id\n\
-";
+    return "# This message will be published from TrackingErrorPlugin.\n"
+"# It contains the joint-space tracking error data for diagnostics.\n"
+"Header header\n"
+"\n"
+"# ID for the trajectory.\n"
+"uint32 trajectory_id\n"
+"\n"
+"# Reference time since start of trajectory in seconds.\n"
+"float64 trajectory_time\n"
+"\n"
+"# name associated with each element for the vectors in this message\n"
+"string[] joint_names\n"
+"\n"
+"# position_error = position_measured - position_command\n"
+"# units:  radians\n"
+"float64[] position_error\n"
+"\n"
+"# velocity_error = velocity_measured - velocity_command\n"
+"# units:  radians per second\n"
+"float64[] velocity_error\n"
+"\n"
+"# joint position that is commanded for each joint, in radians\n"
+"float64[] position_command\n"
+"\n"
+"# joint velocity that is commanded for each joint, in radians per second\n"
+"float64[] velocity_command\n"
+"\n"
+"================================================================================\n"
+"MSG: std_msgs/Header\n"
+"# Standard metadata for higher-level stamped data types.\n"
+"# This is generally used to communicate timestamped data \n"
+"# in a particular coordinate frame.\n"
+"# \n"
+"# sequence ID: consecutively increasing ID \n"
+"uint32 seq\n"
+"#Two-integer timestamp that is expressed as:\n"
+"# * stamp.sec: seconds (stamp_secs) since epoch (in Python the variable is called 'secs')\n"
+"# * stamp.nsec: nanoseconds since stamp_secs (in Python the variable is called 'nsecs')\n"
+"# time-handling sugar is provided by the client library\n"
+"time stamp\n"
+"#Frame this data is associated with\n"
+"string frame_id\n"
+;
   }
 
   static const char* value(const ::intera_motion_msgs::JointTrackingError_<ContainerAllocator>&) { return value(); }

@@ -39,6 +39,7 @@ class RobotArm_TBD():
 		self.jointrecordedposition=[]
 		self._done = False
 		self.doneflag=False
+		self.image_path=''
 
 
 

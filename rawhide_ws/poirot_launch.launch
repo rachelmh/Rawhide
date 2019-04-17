@@ -1,6 +1,6 @@
 <launch>
   <!--Run rosserial for the conveyor arduino-->
-	 <node name='arduino' pkg='rosserial_python' type='serial_node.py' args='/dev/ttyUSB9' respawn="true"/>
+	 <node name='arduino' pkg='rosserial_python' type='serial_node.py' args='/dev/ttyUSB4' respawn="true"/>
 
    <!--Run rosserial for the conveyor arduino-->
     <node name='gripper_p' pkg='robotiq_2f_gripper_control' type='Robotiq2FGripperRtuNode.py' args='/dev/ttyUSB1' respawn="true"/>

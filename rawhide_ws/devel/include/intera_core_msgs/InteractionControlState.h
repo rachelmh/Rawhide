@@ -117,7 +117,7 @@ namespace message_traits
 
 
 // BOOLTRAITS {'IsFixedSize': False, 'IsMessage': True, 'HasHeader': True}
-// {'intera_core_msgs': ['/home/rachel/rawhide/rawhide_ws/src/intera_common/intera_core_msgs/msg', '/home/rachel/rawhide/rawhide_ws/devel/share/intera_core_msgs/msg'], 'geometry_msgs': ['/opt/ros/kinetic/share/geometry_msgs/cmake/../msg'], 'actionlib_msgs': ['/opt/ros/kinetic/share/actionlib_msgs/cmake/../msg'], 'std_msgs': ['/opt/ros/kinetic/share/std_msgs/cmake/../msg'], 'sensor_msgs': ['/opt/ros/kinetic/share/sensor_msgs/cmake/../msg']}
+// {'intera_core_msgs': ['/home/rachel/rawhide/rawhide_ws/src/intera_common/intera_core_msgs/msg', '/home/rachel/rawhide/rawhide_ws/devel/share/intera_core_msgs/msg'], 'geometry_msgs': ['/opt/ros/melodic/share/geometry_msgs/cmake/../msg'], 'actionlib_msgs': ['/opt/ros/melodic/share/actionlib_msgs/cmake/../msg'], 'std_msgs': ['/opt/ros/melodic/share/std_msgs/cmake/../msg'], 'sensor_msgs': ['/opt/ros/melodic/share/sensor_msgs/cmake/../msg']}
 
 // !!!!!!!!!!! ['__class__', '__delattr__', '__dict__', '__doc__', '__eq__', '__format__', '__getattribute__', '__hash__', '__init__', '__module__', '__ne__', '__new__', '__reduce__', '__reduce_ex__', '__repr__', '__setattr__', '__sizeof__', '__str__', '__subclasshook__', '__weakref__', '_parsed_fields', 'constants', 'fields', 'full_name', 'has_header', 'header_present', 'names', 'package', 'parsed_fields', 'short_name', 'text', 'types']
 
@@ -184,50 +184,48 @@ struct Definition< ::intera_core_msgs::InteractionControlState_<ContainerAllocat
 {
   static const char* value()
   {
-    return "## InteractionControlState.msg ##\n\
-# Internal state of the interaction controller including\n\
-# whether the controller is active, current impedence parameters,\n\
-# and the commanded endpoint forces by the interaction controller\n\
-\n\
-Header header\n\
-\n\
-bool      interaction_control_active\n\
-\n\
-## Impedance Control Parameters\n\
-float64[] K_impedance\n\
-float64[] D_impedance\n\
-\n\
-## Force Control Parameters\n\
-# Vector of forces (wrench) (N and Nm) commanded by the interaction controller\n\
-# for the endpoint.\n\
-float64[] endpoint_force_command\n\
-\n\
-string endpoint_name\n\
-bool in_endpoint_frame\n\
-bool disable_damping_in_force_control\n\
-bool disable_reference_resetting\n\
-\n\
-## Parameters for Constrained Zero-G Behaviors\n\
-# Please refer to InteractionControlCommand.msg for more details\n\
-bool rotations_for_constrained_zeroG\n\
-================================================================================\n\
-MSG: std_msgs/Header\n\
-# Standard metadata for higher-level stamped data types.\n\
-# This is generally used to communicate timestamped data \n\
-# in a particular coordinate frame.\n\
-# \n\
-# sequence ID: consecutively increasing ID \n\
-uint32 seq\n\
-#Two-integer timestamp that is expressed as:\n\
-# * stamp.sec: seconds (stamp_secs) since epoch (in Python the variable is called 'secs')\n\
-# * stamp.nsec: nanoseconds since stamp_secs (in Python the variable is called 'nsecs')\n\
-# time-handling sugar is provided by the client library\n\
-time stamp\n\
-#Frame this data is associated with\n\
-# 0: no frame\n\
-# 1: global frame\n\
-string frame_id\n\
-";
+    return "## InteractionControlState.msg ##\n"
+"# Internal state of the interaction controller including\n"
+"# whether the controller is active, current impedence parameters,\n"
+"# and the commanded endpoint forces by the interaction controller\n"
+"\n"
+"Header header\n"
+"\n"
+"bool      interaction_control_active\n"
+"\n"
+"## Impedance Control Parameters\n"
+"float64[] K_impedance\n"
+"float64[] D_impedance\n"
+"\n"
+"## Force Control Parameters\n"
+"# Vector of forces (wrench) (N and Nm) commanded by the interaction controller\n"
+"# for the endpoint.\n"
+"float64[] endpoint_force_command\n"
+"\n"
+"string endpoint_name\n"
+"bool in_endpoint_frame\n"
+"bool disable_damping_in_force_control\n"
+"bool disable_reference_resetting\n"
+"\n"
+"## Parameters for Constrained Zero-G Behaviors\n"
+"# Please refer to InteractionControlCommand.msg for more details\n"
+"bool rotations_for_constrained_zeroG\n"
+"================================================================================\n"
+"MSG: std_msgs/Header\n"
+"# Standard metadata for higher-level stamped data types.\n"
+"# This is generally used to communicate timestamped data \n"
+"# in a particular coordinate frame.\n"
+"# \n"
+"# sequence ID: consecutively increasing ID \n"
+"uint32 seq\n"
+"#Two-integer timestamp that is expressed as:\n"
+"# * stamp.sec: seconds (stamp_secs) since epoch (in Python the variable is called 'secs')\n"
+"# * stamp.nsec: nanoseconds since stamp_secs (in Python the variable is called 'nsecs')\n"
+"# time-handling sugar is provided by the client library\n"
+"time stamp\n"
+"#Frame this data is associated with\n"
+"string frame_id\n"
+;
   }
 
   static const char* value(const ::intera_core_msgs::InteractionControlState_<ContainerAllocator>&) { return value(); }

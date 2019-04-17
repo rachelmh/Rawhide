@@ -116,7 +116,7 @@ namespace message_traits
 
 
 // BOOLTRAITS {'IsFixedSize': False, 'IsMessage': True, 'HasHeader': True}
-// {'intera_core_msgs': ['/home/rachel/rawhide/rawhide_ws/src/intera_common/intera_core_msgs/msg', '/home/rachel/rawhide/rawhide_ws/devel/share/intera_core_msgs/msg'], 'geometry_msgs': ['/opt/ros/kinetic/share/geometry_msgs/cmake/../msg'], 'actionlib_msgs': ['/opt/ros/kinetic/share/actionlib_msgs/cmake/../msg'], 'std_msgs': ['/opt/ros/kinetic/share/std_msgs/cmake/../msg'], 'sensor_msgs': ['/opt/ros/kinetic/share/sensor_msgs/cmake/../msg']}
+// {'intera_core_msgs': ['/home/rachel/rawhide/rawhide_ws/src/intera_common/intera_core_msgs/msg', '/home/rachel/rawhide/rawhide_ws/devel/share/intera_core_msgs/msg'], 'geometry_msgs': ['/opt/ros/melodic/share/geometry_msgs/cmake/../msg'], 'actionlib_msgs': ['/opt/ros/melodic/share/actionlib_msgs/cmake/../msg'], 'std_msgs': ['/opt/ros/melodic/share/std_msgs/cmake/../msg'], 'sensor_msgs': ['/opt/ros/melodic/share/sensor_msgs/cmake/../msg']}
 
 // !!!!!!!!!!! ['__class__', '__delattr__', '__dict__', '__doc__', '__eq__', '__format__', '__getattribute__', '__hash__', '__init__', '__module__', '__ne__', '__new__', '__reduce__', '__reduce_ex__', '__repr__', '__setattr__', '__sizeof__', '__str__', '__subclasshook__', '__weakref__', '_parsed_fields', 'constants', 'fields', 'full_name', 'has_header', 'header_present', 'names', 'package', 'parsed_fields', 'short_name', 'text', 'types']
 
@@ -183,43 +183,41 @@ struct Definition< ::intera_core_msgs::JointCommand_<ContainerAllocator> >
 {
   static const char* value()
   {
-    return "Header header\n\
-\n\
-int32 mode             # Mode in which to command arm\n\
-\n\
-string[]  names        # Joint names order for command\n\
-\n\
-# Fields of commands indexed according to the Joint names vector.\n\
-# Command fields required for a desired mode are listed in the comments\n\
-float64[] position     # (radians)       Required for POSITION_MODE and TRAJECTORY_MODE\n\
-float64[] velocity     # (radians/sec)   Required for VELOCITY_MODE and TRAJECTORY_MODE\n\
-float64[] acceleration # (radians/sec^2) Required for                   TRAJECTORY_MODE\n\
-float64[] effort       # (newton-meters) Required for TORQUE_MODE\n\
-\n\
-# Modes available to command arm\n\
-int32 POSITION_MODE=1\n\
-int32 VELOCITY_MODE=2\n\
-int32 TORQUE_MODE=3\n\
-int32 TRAJECTORY_MODE=4\n\
-\n\
-================================================================================\n\
-MSG: std_msgs/Header\n\
-# Standard metadata for higher-level stamped data types.\n\
-# This is generally used to communicate timestamped data \n\
-# in a particular coordinate frame.\n\
-# \n\
-# sequence ID: consecutively increasing ID \n\
-uint32 seq\n\
-#Two-integer timestamp that is expressed as:\n\
-# * stamp.sec: seconds (stamp_secs) since epoch (in Python the variable is called 'secs')\n\
-# * stamp.nsec: nanoseconds since stamp_secs (in Python the variable is called 'nsecs')\n\
-# time-handling sugar is provided by the client library\n\
-time stamp\n\
-#Frame this data is associated with\n\
-# 0: no frame\n\
-# 1: global frame\n\
-string frame_id\n\
-";
+    return "Header header\n"
+"\n"
+"int32 mode             # Mode in which to command arm\n"
+"\n"
+"string[]  names        # Joint names order for command\n"
+"\n"
+"# Fields of commands indexed according to the Joint names vector.\n"
+"# Command fields required for a desired mode are listed in the comments\n"
+"float64[] position     # (radians)       Required for POSITION_MODE and TRAJECTORY_MODE\n"
+"float64[] velocity     # (radians/sec)   Required for VELOCITY_MODE and TRAJECTORY_MODE\n"
+"float64[] acceleration # (radians/sec^2) Required for                   TRAJECTORY_MODE\n"
+"float64[] effort       # (newton-meters) Required for TORQUE_MODE\n"
+"\n"
+"# Modes available to command arm\n"
+"int32 POSITION_MODE=1\n"
+"int32 VELOCITY_MODE=2\n"
+"int32 TORQUE_MODE=3\n"
+"int32 TRAJECTORY_MODE=4\n"
+"\n"
+"================================================================================\n"
+"MSG: std_msgs/Header\n"
+"# Standard metadata for higher-level stamped data types.\n"
+"# This is generally used to communicate timestamped data \n"
+"# in a particular coordinate frame.\n"
+"# \n"
+"# sequence ID: consecutively increasing ID \n"
+"uint32 seq\n"
+"#Two-integer timestamp that is expressed as:\n"
+"# * stamp.sec: seconds (stamp_secs) since epoch (in Python the variable is called 'secs')\n"
+"# * stamp.nsec: nanoseconds since stamp_secs (in Python the variable is called 'nsecs')\n"
+"# time-handling sugar is provided by the client library\n"
+"time stamp\n"
+"#Frame this data is associated with\n"
+"string frame_id\n"
+;
   }
 
   static const char* value(const ::intera_core_msgs::JointCommand_<ContainerAllocator>&) { return value(); }
