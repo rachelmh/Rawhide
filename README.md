@@ -289,6 +289,7 @@ Robot raconteur also requires pyserial and numpy.
 sudo apt-get install python-serial python-numpy python-opencv python-pygame
 ```
 
+## Every time you run the main program
 
 ### Getting ready to launch everything
 
