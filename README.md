@@ -146,144 +146,209 @@ $ git config --global user.email rachelmh@mit.edu
 ```
 
 
-### Install Packages for Browser
+### Install PyKDL and Robotiq
 ```
-$ cd ~/teachbot/browser
-$ sudo apt-get install ros-melodic-rosbridge-suite
-$ curl -sL https://deb.nodesource.com/setup_10.x | sudo -E bash -
-$ sudo apt-get install -y nodejs
-$ npm install .
+cd ~/rawhide/rawhide_ws/src
+git clone https://github.com/rupumped/sawyer_pykdl.git
+cd ..
+catkin_make
+cd src
+git clone https://github.com/ros-industrial/robotiq.git
+ source ~/rawhide/rawhide_ws/devel/setup.bash
+rosdep install robotiq_modbus_tcp
+sudo apt-get install ros-melodic-soem
+cd ..
+rosdep install --from-paths src --ignore-src -r -y
+sudo usermod -a -G dialout $USER
+catkin_make
+
+
+```
+### Make sure Robotiq Grippers Connect
+To make sure the grippers are up and running, you can simply do this:
+First check to see which ports the grippers are connected to by using
+```
+dmesg | grep ttyUSB
+```
+For me, when I have nothing but one gripper plugged in I see:
+```
+[  307.969155] usb 1-4: FTDI USB Serial Device converter now attached to ttyUSB0
+[  307.970078] usb 1-4: FTDI USB Serial Device converter now attached to ttyUSB1
+```
+Make sure you use the higher number usb port when commanding the gripper.
+
+When I have both grippers and the arduino plugged in via USB I see:
+```
+ usb 1-4: FTDI USB Serial Device converter now attached to ttyUSB0
+ usb 1-4: FTDI USB Serial Device converter now attached to ttyUSB1
+usb 1-3: FTDI USB Serial Device converter now attached to ttyUSB2
+usb 1-3: FTDI USB Serial Device converter now attached to ttyUSB3
+usb 1-2: FTDI USB Serial Device converter now attached to ttyUSB4
+```
+meaning that gripper1 should be commanded via ttyUSB1 and gripper2 should be commanded via ttyUSB3 and the arduino should be commanded via ttyUSB4. This should be remembered for later!!
+
+To test the connection:
+
+open a new terminal
+```
+cd ~/rawhide/rawhide_ws
+./intera_poirot.sh
+rosrun robotiq_2f_gripper_control Robotiq2FGripperRtuNode.py /dev/ttyUSB1
+```
+The correct output should be
+```
+ pub = rospy.Publisher('Robotiq2FGripperRobotInput', inputMsg.Robotiq2FGripper_robot_input)
+ ```
+ 
+ You can also check the ros topics
+ ```
+ rostopic list
+ ```
+ In addition to seeing all of the sawyer topics (if you are running the grippers via ROS on the sawyer), you should be able to see
+ ```
+ /Robotiq2FGripperRobotInput
+/Robotiq2FGripperRobotOutput
 ```
 
-### Install Miscellaneous Packages
+If you want to play around with the grippers, I recommend following this tutorial
+http://wiki.ros.org/robotiq/Tutorials/Control%20of%20a%202-Finger%20Gripper%20using%20the%20Modbus%20RTU%20protocol%20%28ros%20kinetic%20and%20newer%20releases%29
+
+IMPORTANT: When you are following the above tutorial, make sure you activate-reset-activate. This will allow the gripper to actually work.
+
+
+
+
+### Install Arduino
+Go to https://www.arduino.cc/en/Main/Software and download the file linux 64 bits
+extract the files in the /home/rachel directory
+
 ```
-$ sudo apt install python-pip
-$ pip install gTTS --upgrade
-$ pip install gTTS-token --upgrade --user
-$ pip install pexpect
-$ pip install playsound
+cd ~/arduino-1.8.9-linux64/arduino--1.8.9    
+sudo ./install.sh
+sudo usermod -a -G dialout $USER
+```
+### Install Ros Serial for Arduino
+go to http://wiki.ros.org/rosserial_arduino/Tutorials/Arduino%20IDE%20Setup
+```
+cd ~/rawhide/rawhide_ws/src
+git clone https://github.com/ros-drivers/rosserial.git
+cd ..
+catkin_make
+#  cd <sketchbook>/libraries <sketchbook> is the directory where the Linux Arduino environment saves your sketches. Typically in #home directory
+cd ~/Arduino/libraries
+rosrun rosserial_arduino make_libraries.py .
+ 
+
+```
+The settings for the Arduino I use are 
+Board: Arduino Pro or Pro Mini
+Processor: ATMega328P 5V 16MHz
+
+And the code running should be located in
+/home/rachel/rawhide/rmh_code/multi_button_rmh/multi_button_rmh.ino
+
+This code basically publishes topics for each of the 4 buttons (2 per sawyer)
+
+### Make sure Arduino ROS Nodes work
+check to see which port the arduino is plugged in then open a terminal running ros (either start a new terminal with roscore or ./intera.sh into one of the sawyers). Change ttyUSB0 to whatever port is connected to the arduino
+ ```
+ rosrun rosserial_python serial_node.py /dev/ttyUSB0
+ ```
+ If running properly, the output should be:
+ ```
+ [INFO] [1555376406.861082]: ROS Serial Python Node
+[INFO] [1555376406.883253]: Connecting to /dev/ttyUSB2 at 57600 baud
+[INFO] [1555376408.993138]: Requesting topics...
+[INFO] [1555376409.068245]: Note: publish buffer size is 280 bytes
+[INFO] [1555376409.074238]: Setup publisher on pushed1 [std_msgs/Bool]
+[INFO] [1555376409.085425]: Setup publisher on pushed2 [std_msgs/Bool]
+[INFO] [1555376409.097274]: Setup publisher on pushed3 [std_msgs/Bool]
+[INFO] [1555376409.108392]: Setup publisher on pushed4 [std_msgs/Bool]
 ```
 
-## To Launch
-Navigate to the `teachbot/robot` directory. 
+### Install Robot Raconteur
 
-Initialize SDK environment
+Install dependencies
 ```
-$ ./intera.sh
-```
-
-Launch the websocket and start Node.js
-```
-$ roslaunch ../browser/websocket.launch & node ../browser/www.js &
+apt-get install default-jdk default-jdk-headless default-jre default-jre-headless python2.7-minimal libpython2.7 python2.7-dev libpython2.7-dev libssl1.0.0 zlib1g zlib1g-dev libssl-dev libusb-1.0-0 libusb-1.0-0-dev libdbus-1-3 libdbus-1-dev libbluetooth3 libbluetooth-dev zlib1g zlib1g-dev python-numpy python-setuptools python-wheel git cmake-qt-gui g++ make libboost-all-dev autoconf automake libtool bison libpcre3-dev
 ```
 
-Run the TeachBot ROS Node
+First go to http://www.robotraconteur.com/download/. You will have to create a username and password.
+Once inside, scroll down to find RobotRaconteur-0.8.1-beta-Python.linux-x86_64-py2.7-2016-07-18.tar.gz  (or RobotRaconteur-0.8.1-beta-Python.linux-i686-py2.7-2016-07-18.tar.gz depending on your computer)
+Download the file.
+
+Then
 ```
-$ rosrun teachbot module1.py
+cd /
+sudo tar xvzf /home/rachel/Downloads/RobotRaconteur-0.8.1-beta-Python.linux-x86_64-py2.7-2016-07-18.tar.gz
 ```
-replacing `module1.py` with the desired module.
 
-## Load Modules in Firefox
-Open Firefox and go to the url https://localhost:8000
+Robot raconteur also requires pyserial and numpy.
 
-### If Firefox alerts you that your connection is not secure
-Click "Advanced"
-
-![Click "Advanced"](/images/insecure_connection.png?raw=true)
-
-Click "Add Exception"
-
-![Click "Add Exception"](/images/add_exception.png?raw=true)
-
-Click "Confirm Security Exception"
-
-![Click "Confirm Security Exception"](/images/confirm_exception.png?raw=true)
-
-At this point, the module should begin, but there should be a pop-up window that reads "Error connecting to websocket server" like this:
-
-![Navigate to localhost:9090 and repeat the security exception process.](/images/connection_error.png?raw=true)
-
-Then, go to the url https://localhost:9090 and repeat the security exception process. After, https://localhost:9090 should simply read `Can "Upgrade" only to "WebSocket".` Navigate back to https://localhost:8000.
-### EndIf
-
-You have successfully launched the teaching module!
-
-## Repository Overview
 ```
-.
-|
-+-- browser                             Files related to the HTML/CSS/JS running in-browser.
-|   +-- public                          Front-End Browser Content.
-|       +-- audio                       TeachBot speech audio files.
-|           +-- module#/                Directories containing audio files of TeachBot speech indexed by module.
-|           +-- make_speech.py          Script to generate speech audio files from text scripts.
-|       +-- css/                        Style sheets for the browser HTML
-|       +-- html/                       Web pages to display in browser.
-|       +-- images/                     Images displayed in browser by TeachBot.
-|       +-- js                          JavaScript module control scripts and utilities.
-|           +-- utils/                  Utility functions for browser.
-|           +-- #.js                    Module control scripts for browser indexed by module.
-|       +-- text/                       What TeachBot says.
-|       +-- videos/                     Videos played in browser by TeachBot.
-|   +-- routes/                         Node.js routes used by app.js.
-|   +-- views/                          App templates.
-|   +-- app.js                          Main configuration file for TeachBot browser.
-|   +-- CMakeLists.txt                  Node CMakeLists.
-|   +-- package-lock.json               NPM install utility.
-|   +-- package.json                    NPM install utility.
-|   +-- package.xml                     Node package manifest.
-|   +-- websocket.launch                ROS launch file for web module.
-|   +-- www.js                          Starts Node.js server.
-|
-+-- images/                             Images for the README
-|
-+-- robot                               Python ROS library responsible for communicating with the robot.
-|   +-- src                             Source code.
-|       +-- arduino_files/              Scripts for running peripheral devices on Arduino.
-|       +-- teachbot                    TeachBot ROS package.
-|           +-- Learner_Responses/      Data collected from user subject tests.
-|           +-- src/                    Python source code.
-|               +-- module#.py          Module control scripts for robot indexed by module.
-|               +-- <other>.py          Utility classes and functions used by module control scripts.
-|           +-- CMakeLists.txt          TeachBot package CMakeLists.
-|           +-- package.xml             TeachBot package manifest.
-|           +-- setup.py                TeachBot package setup script.
-|   +-- sslcert/                        SSL certificate files required for setting up HTTPS connection.
-|   +-- logo.png                        TeachBot logo to be displayed on Sawyer head display.
-|   +-- module#.launch                  Launch files for each TeachBot module.
-|   +-- safety1.mp3                     Audio file to be played when TeachBot limb exits safety zone.
-|   +-- safety2.mp3                     Audio file to be played when TeachBot limb resets to within the safety zone.
+sudo apt-get install python-serial python-numpy python-opencv python-pygame
 ```
-The project is organized in two segments:
-1) JavaScript Node application, responsible for displaying content in the browser, and
-2) Python ROS library, responsible for communicating with the robot.
 
-### JavaScript Node Application
-The JavaScript scripts controlling the browser are located [here](/browser/public/js) and are indexed by module. The crux of these files is the `init()` function that initiates ROS communication between the browser and the Python shell and subscribes to the `cmd2browser` topic to receive commands from the shell. These messages are of type `Int32` and consist of the index of the command to run. The subscriber function is essentially a massive switch statement commanding the browser to display graphics and play audio depending on the index received on the topic. After performing the prescribed sequence, the script increments the index and passes it to the Python shell by publishing it on  the `cmd2shell` topic.
 
-### Python ROS Library
-All Python scripts are located in [the teachbot source directory](/robot/src/teachbot/src).
+### Getting ready to launch everything
 
-The main files have names beginning in 'module' (e.g. `module1.py`). These files are run using the command described above:
-```
-$ rosrun teachbot module1.py
-```
-The scripts are structured according to `module_template.py`. Their main function is as a ROS listener awaiting instructions from the browser and monitoring the robot ROSTopics. Each file contains the function `rx_command(self, data)`, which receives instructions from the browser in the form of ROS messages on the `cmd2shell` topic. Complementing the JavaScript `init()` subscriber, `rx_command()` also acts as essentially a massive switch statement. Whenever an index is received from the browser on the `cmd2shell` topic, `rx_command` performs a sequence of tasks corresponding to the index received, then publishes the index to the `cmd2browser` topic to inform the browser the sequence is complete.
+I have made several launch files to help starting up the code simpler, but first we need to make sure all of the ports are set.
 
-## Editing the Script
-The TeachBot script for each module can be found in [the text directory](/browser/public/text). Each line is synthesized into its own audio file and played by a single call to the `play()` method in JavaScript. There can be no empty lines in the script file.
 
-After editing the script, navigate to [the audio directory](/browser/public/audio) and run the following command, replacing both instances of `1` with the module number for which you wish to generate audio:
 ```
-$ python3 make_speech.py ../text/1.txt module1/
+cd ~/rawhide/rawhide_ws
+ls
 ```
-The `make_speech.py` script uses Google Text-to-Speech to synthesize audio files from each line of the input txt file and saves them in the given directory. The corresponding JavaScript module script downloads and plays these files.
+You should see 
+fullsystem_rmh.sh
+poirot_launch.launch
+captain_launch.launch
 
-Additionally, you may wish to update the JavaScript file with the new text. To do so, navigate to [the js directory](/browser/public/js) and run the following command, replacing `1.js` with the name of the JS file you wish to update:
+Using your favorite editor, open poirot_launch.launch
+
+Make sure the rosserial arduino port matches what it actually is when plugged in.  Same for the gripper ttyUSB
 ```
-$ python3 js_update.py 1.js
+<launch>
+  <!--Run rosserial for the conveyor arduino-->
+	 <node name='arduino' pkg='rosserial_python' type='serial_node.py' args='/dev/ttyUSB4' respawn="true"/>
+ 
+    <node name='gripper_p' pkg='robotiq_2f_gripper_control' type='Robotiq2FGripperRtuNode.py' args='/dev/ttyUSB3' respawn="true"/>
+  ```  
+    
+Once those are saved, we are ready to launch everything! You should make sure the launch files match with the ports every time you plugin/unplug the usbs for the grippers.
+
+### LAUNCHING!
+
+1. Open a new terminal
+
 ```
-The script will generate a new .js file, `updated_1.js`. Review this file and copy its contents into `1.js`.
+source ~/rawhide/rawhide_ws/devel/setup.bash
+cd ~/rawhide/rawhide_ws
+ ./fullsystem_rmh.sh 
+ ```
+ Two additional tabs should have opened, one .sh'd into Poirot, one .sh'd into Captain
+ In the poirot terminal
+ 
+```
+source ~/rawhide/rawhide_ws/devel/setup.bash
+roslaunch  poirot_launch.launch
+```
+ In the captain terminal
+```
+source ~/rawhide/rawhide_ws/devel/setup.bash
+roslaunch  captain_launch.launch
+```
+
+In the original Terminal to run the code
+
+```
+ source ~/rawhide/rawhide_ws/devel/setup.bash
+ cd ~rawhide/rmh_code
+ python TBD_4_4.py
+ 
+ ```
+
+
 
 
 
