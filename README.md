@@ -304,7 +304,22 @@ fullsystem_rmh.sh
 poirot_launch.launch
 captain_launch.launch
 
-Using your favorite editor, open poirot_launch.launch
+First, open fullsystem_rmh.sh with your favorite editor
+```
+gedit fullsystem_rmh.sh
+```
+Inside, you should see this line
+```
+gnome-terminal --tab --title="poirot1" --command="bash -c 'cd ~/rawhide/rawhide_ws; source intera_poirot.sh;'"
+```
+
+change the source to match the .sh file for your robots. For example, if you create a .sh file for your robot local host name 'robot1' you should have
+```
+gnome-terminal --tab --title="poirot1" --command="bash -c 'cd ~/rawhide/rawhide_ws; source robot1.sh;'"
+```
+Update the second line similarly for your second robot.
+
+Next, using your favorite editor, open poirot_launch.launch
 
 Make sure the rosserial arduino port matches what it actually is when plugged in.  Same for the gripper ttyUSB
 ```
