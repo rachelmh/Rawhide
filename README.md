@@ -22,7 +22,11 @@ If you change the directory, make sure you adjust all following commands.
 ```
 $ cd
 $ git clone https://github.com/rachelmh/rawhide.git
-$ cd rawhide
+$ cd rawhide/rawwhide_ws
+```
+Delete the build and devel folders
+```
+$cd ..
 ```
 
 ### Install Intera
