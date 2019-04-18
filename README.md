@@ -39,7 +39,10 @@ $ git clone https://github.com/RethinkRobotics/sawyer_robot.git
 $ wstool merge sawyer_robot/sawyer_robot.rosinstall
 $ wstool update
 $ source /opt/ros/melodic/setup.bash
-$ cd ~/rawhide/rawhide_ws
+$ cd ~/rawhide/rawhide_ws/src
+$ cmake
+$ make
+$ cd ~/rawhide/rawhide_ws/
 $ catkin_make
 ```
 
