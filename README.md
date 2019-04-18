@@ -362,7 +362,7 @@ usb 1-3: FTDI USB Serial Device converter now attached to ttyUSB3
 
 FOR THE GRIPPERS, EACH GRIPPER HAS 2 ttyUSBs  (ttyUSB0 and ttyUSB1 for exampple) the ttyUSB that you should connect to has the higher number.
 
-
+```
 <launch>
   <!--Run rosserial for the conveyor arduino-->
 	 <node name='arduino' pkg='rosserial_python' type='serial_node.py' args='/dev/ttyUSB4' respawn="true"/>
