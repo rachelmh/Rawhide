@@ -311,7 +311,11 @@ You should see
 fullsystem_rmh.sh
 poirot_launch.launch
 captain_launch.launch
+robot1_launch.launch
+robot2_launch.launch
 
+
+YOU DON'T NEED TO EDIT FULLSYSTEM_RMH EVERY TIME.
 First, open fullsystem_rmh.sh with your favorite editor
 ```
 gedit fullsystem_rmh.sh
@@ -327,10 +331,38 @@ gnome-terminal --tab --title="poirot1" --command="bash -c 'cd ~/rawhide/rawhide_
 ```
 Update the second line similarly for your second robot.
 
-Next, using your favorite editor, open poirot_launch.launch
 
-Make sure the rosserial arduino port matches what it actually is when plugged in.  Same for the gripper ttyUSB
+
+Next, using your favorite editor, open poirot_launch.launch (or robot1_launch.launch)
+
+Make sure the rosserial arduino port matches what it actually is when plugged in.  Same for the gripper ttyUSB.
+You can check what ttyUSB it is connected to by using
 ```
+dmesg | grep ttyUSB
+```
+to see the output, then plug in the arduino or gripper and run 
+```
+dmesg | grep ttyUSB
+```
+
+again. You should see the change in output.  For example, if I have one gripper plugged in I will see
+```
+usb 1-4: FTDI USB Serial Device converter now attached to ttyUSB0
+ usb 1-4: FTDI USB Serial Device converter now attached to ttyUSB1
+
+```
+then when I plug in the second gripper I should see
+```
+ usb 1-4: FTDI USB Serial Device converter now attached to ttyUSB0
+ usb 1-4: FTDI USB Serial Device converter now attached to ttyUSB1
+usb 1-3: FTDI USB Serial Device converter now attached to ttyUSB2
+usb 1-3: FTDI USB Serial Device converter now attached to ttyUSB3
+
+```
+
+FOR THE GRIPPERS, EACH GRIPPER HAS 2 ttyUSBs  (ttyUSB0 and ttyUSB1 for exampple) the ttyUSB that you should connect to has the higher number.
+
+
 <launch>
   <!--Run rosserial for the conveyor arduino-->
 	 <node name='arduino' pkg='rosserial_python' type='serial_node.py' args='/dev/ttyUSB4' respawn="true"/>
@@ -347,11 +379,20 @@ Once those are saved, we are ready to launch everything! You should make sure th
 ```
 source ~/rawhide/rawhide_ws/devel/setup.bash
 cd ~/rawhide/rawhide_ws
- ./fullsystem_rmh.sh 
+```
+if you are Rachel, run
+```
+ ./fullsystem_rmh.sh OR 
  ```
- Two additional tabs should have opened, one .sh'd into Poirot, one .sh'd into Captain
- In the poirot terminal
+ If you are QNA, run
+ ```
+  ./fullsystem_qna.sh
+  ```
+ Two additional tabs should have opened, one .sh'd into Poirot (or robot1), one .sh'd into Captain (or robot2)
+
  
+ IF YOU ARE USING POIROT/CAPTAIN
+  In the poirot  terminal
 ```
 source ~/rawhide/rawhide_ws/devel/setup.bash
 roslaunch  poirot_launch.launch
@@ -361,6 +402,19 @@ roslaunch  poirot_launch.launch
 source ~/rawhide/rawhide_ws/devel/setup.bash
 roslaunch  captain_launch.launch
 ```
+ IF YOU ARE USING ROBOT1/ROBOT2
+ in the robot1 terminal
+```
+source ~/rawhide/rawhide_ws/devel/setup.bash
+roslaunch  robbot1_launch.launch
+```
+ In the robbot2 terminal
+```
+source ~/rawhide/rawhide_ws/devel/setup.bash
+roslaunch  robot2_launch.launch
+```
+
+FOR BOTH
 
 In the original Terminal to run the code
 
