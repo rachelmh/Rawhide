@@ -142,6 +142,10 @@ class Sawyer_impl(object):
         self.grippercommand.rGTO = 1
         self.grippercommand.rSP  = 255
         self.grippercommand.rFR  = 150
+	self.pb1=1
+	self.pb2=1
+	self.pb3=1
+	self.pb4=1
         time.sleep(.5)
 
 

@@ -1,1 +1,1 @@
-/home/rachel/rawhide/rmh_code/TBD_logs/logdemo1_0.txt,/home/rachel/rawhide/rmh_code/TBD_logs/logdemo1_1.txt,/home/rachel/rawhide/rmh_code/TBD_logs/loggrasp1_0.txt
+/home/rachel/rawhide/rmh_code/TBD_logs/logdemo1_0.txt

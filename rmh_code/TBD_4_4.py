@@ -85,19 +85,25 @@ def time_stamp(start_time):
 	ts=time.time() - start_time
 	return ts
 def redorblue(robot1,robot2):
+	#while 1:
+
+	print(robot1.robot.PB1,robot1.robot.PB2,robot1.robot.PB3,robot1.robot.PB4)
+	time.sleep(.25)
+	#pdb.set_trace()
 	redflag=0
 	blueflag=0
 	time.sleep(.25)
 	while redflag==0 and blueflag==0:
+		time.sleep(.25)
 		#print(robot1.robot.PB3,robot1.robot.PB1,robot1.robot.PB2,robot1.robot.PB4)
 		redflag1=robot1.robot.PB3
 		redflag2=robot1.robot.PB1
 		blueflag1=robot1.robot.PB2
 		blueflag2=robot1.robot.PB4
-		if redflag1== 1 or redflag2 == 1:
+		if redflag1== 0 or redflag2 == 0:
 			redflag=1
 
-		if blueflag1== 1 or blueflag2 == 1:
+		if blueflag1== 0 or blueflag2 == 0:
 			blueflag=1
 
 		if redflag==1:
@@ -329,7 +335,7 @@ def editplaybackfile(robot1,robot2,filename):
 			f.write(','.join([str(x) for x in vels_right]) +  temp_str)
 			#print(','.join([str(x) for x in angles_right]) +  temp_str)
 			# f.write(','.join([str(x) for x in angles_right]) + ',' + temp_str)
-			if robot1.robot.PB1==1 or robot1.robot.PB3==1:
+			if robot1.robot.PB1==0 or robot1.robot.PB3==0:
 				temp_str =  '\n'
 				angles_rob1 = robot1.get_current_joint_positions()
 				angles_rob2 = robot2.get_current_joint_positions()
@@ -382,12 +388,8 @@ def record_sequence(robot1,robot2,wireid):
 		robot2.robot.setDisplayImage(robot1.image_path +'rawhide/rmh_code/TBD_images/startrecording.png')
 		print('to start recording sequence, press any Button')
 		redorblue(robot1,robot2)
-		# while robot1.robot.PB1==0 and robot1.robot.PB3==0:
-		# 	time.sleep(.01)
-		# robot1.robot.setDisplayImage(robot1.image_path +'rawhide/rmh_code/TBD_images/stoprecord.png')
-		# robot2.robot.setDisplayImage(robot1.image_path +'rawhide/rmh_code/TBD_images/stoprecord.png')
-		fileName = (robot1.image_path+'rawhide/rmh_code/TBD_logs/logdemo%d_%d.txt" % (wireid,fileiter))
 
+		fileName = (robot1.image_path+'rawhide/rmh_code/TBD_logs/logdemo%d_%d.txt' % (wireid,fileiter))
 		record(robot1,robot2,fileName)
 
 		robot1.SetControlMode(0)
@@ -411,7 +413,7 @@ def record_sequence(robot1,robot2,wireid):
 			time.sleep(.5)
 			if button=='red':
 				print('regrasp')
-				fileName = (robot1.image_path+'rawhide/rmh_code/TBD_logs/loggrasp%d_%d.txt" % (wireid,graspiter))
+				fileName = (robot1.image_path+'rawhide/rmh_code/TBD_logs/loggrasp%d_%d.txt' % (wireid,graspiter))
 				filename_list.append(fileName)
 				#grasp_wire()
 				regrasp_record(robot1,robot2,fileName)
@@ -439,7 +441,7 @@ def record_sequence(robot1,robot2,wireid):
 		robot2.robot.setDisplayImage(robot1.image_path +'rawhide/rmh_code/TBD_images/recordanother.png')
 
 
-	fileName = (robot1.image_path +'rawhide/rmh_code/TBD_logs/filenamelist_%d.txt" % (wireid))
+	fileName = (robot1.image_path +'rawhide/rmh_code/TBD_logs/filenamelist_%d.txt' % (wireid))
 
 
 	with open(fileName, 'w') as f:
@@ -511,7 +513,7 @@ def record(robot1,robot2,filename):
 				temp_str =  '\n'
 				angles_rob1 = robot1.get_current_joint_positions()
 				angles_rob2 = robot2.get_current_joint_positions()
-				vels_rob1=robot1.get_current_joint_velocity()
+				vels_rob1=robot1.get_curoint_velocity()
 				vels_rob2=robot2.get_current_joint_velocity()
 				grippos=[robot1.robot.gripperPos,robot2.robot.gripperPos]
 
@@ -526,7 +528,7 @@ def record(robot1,robot2,filename):
 				f.write(','.join([str(x) for x in vels_right]) +  temp_str)
 				#print(','.join([str(x) for x in angles_right]) +  temp_str)
 				# f.write(','.join([str(x) for x in angles_right]) + ',' + temp_str)
-				if robot1.robot.PB1==1 or robot1.robot.PB3==1:
+				if robot1.robot.PB1==0 or robot1.robot.PB3==0:
 
 					grippos=[robot1.robot.gripperPos,robot2.robot.gripperPos]
 					angles_right1=numpy.concatenate((robot1.get_current_joint_positions(), robot2.get_current_joint_positions()))
@@ -628,7 +630,7 @@ def regrasp_record(robot1,robot2,filename):
 				f.write(','.join([str(x) for x in vels_right]) +  temp_str)
 				#print(','.join([str(x) for x in angles_right]) +  temp_str)
 				# f.write(','.join([str(x) for x in angles_right]) + ',' + temp_str)
-				if robot1.robot.PB1==1 or robot1.robot.PB3==1:
+				if robot1.robot.PB1==0 or robot1.robot.PB3==0:
 
 					grippos=[robot1.robot.gripperPos,robot2.robot.gripperPos]
 					angles_right1=numpy.concatenate((robot1.get_current_joint_positions(), robot2.get_current_joint_positions()))
@@ -669,11 +671,11 @@ def main():
 	captain.robot.setGRIPpos(0)
 	#DA_Move_To_Position(poirot,captain,[0, -1.18, 0, 2.6, 0, 0, 3.3],[0, -1.18, 0, 2.6, 0,0,3.3],.2)
 	wire_ready_pos= [3, -1.18, 0, 2.6, 0, 0, 3.3]
-	poirot.image_path='home/rachel/'
-	captain.image_path='home/rachel/'
+	poirot.image_path='/home/rachel/'
+	captain.image_path='/home/rachel/'
 	poirot.robot.setDisplayImage(poirot.image_path +'rawhide/rmh_code/TBD_images/startingup.png')
 	captain.robot.setDisplayImage(poirot.image_path +'rawhide/rmh_code/TBD_images/startingup.png')
-	DA_Move_To_Position(poirot,captain,[0, -1.18, 0, 2.6, 0, 0, 3.3],[0, -1.18, 0, 2.6, 0,0,3.3],.2)
+	#DA_Move_To_Position(poirot,captain,[0, -1.18, 0, 2.6, 0, 0, 3.3],[0, -1.18, 0, 2.6, 0,0,3.3],.2)
 	quitflag=0
 
 	while quitflag==0:
@@ -681,11 +683,15 @@ def main():
 		captain.robot.setDisplayImage(poirot.image_path +'rawhide/rmh_code/TBD_images/wirestation.png')
 		move_to_wire_ready_pos(poirot,captain)
 		#move_from_wire_ret_to_neut(poirot,captain)
+
 		print('scan wire')
 		poirot.robot.setDisplayImage(poirot.image_path +'rawhide/rmh_code/TBD_images/wire_id.png')
 		captain.robot.setDisplayImage(poirot.image_path +'rawhide/rmh_code/TBD_images/wire_id.png')
+		#while 1:
+			#print(poirot.robot.PB3)
 		wireid=scan_wire()
 		print('wire id is: ',wireid)
+		time.sleep(1)
 		fileNameList = (poirot.image_path +'rawhide/rmh_code/TBD_logs/filenamelist_%d.txt' % (wireid))
 		file_exist=filecheck(fileNameList)
 		poirot.robot.setDisplayImage(poirot.image_path +'rawhide/rmh_code/TBD_images/grabwire.png')
